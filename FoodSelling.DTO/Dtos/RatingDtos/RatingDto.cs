@@ -6,6 +6,6 @@
         public string UserName { get; set; }
         public int Star { get; set; }
         public string? Comment { get; set; }
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
