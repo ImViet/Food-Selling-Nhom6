@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodSelling.Backend.Data
 {
-    public class FoodSellingDbContext: IdentityDbContext<User, Role, string>
+    public class FoodSellingDbContext : IdentityDbContext<User, Role, string>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -26,4 +26,5 @@ namespace FoodSelling.Backend.Data
                 .WithOne(c => c.Category)
                 .OnDelete(DeleteBehavior.Cascade);
         }
+    }
 }
