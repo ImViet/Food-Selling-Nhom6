@@ -4,5 +4,6 @@ namespace FoodSelling.Backend.Entities
 {
     public class User: IdentityUser<string>
     {
+        public int IndetityCard { get; set; }
     }
 }

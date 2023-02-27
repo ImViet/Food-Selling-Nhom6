@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodSelling.Backend", "FoodSelling.Backend\FoodSelling.Backend.csproj", "{5C770E97-EF1C-42FE-BA3B-ADAD289C3AD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodSelling.Backend", "FoodSelling.Backend\FoodSelling.Backend.csproj", "{5C770E97-EF1C-42FE-BA3B-ADAD289C3AD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodSelling.CustomerSite", "FoodSelling.CustomerSite\FoodSelling.CustomerSite.csproj", "{607D3A44-5FFB-44B0-ABC7-421054300BA6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodSelling.CustomerSite", "FoodSelling.CustomerSite\FoodSelling.CustomerSite.csproj", "{607D3A44-5FFB-44B0-ABC7-421054300BA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodSelling.DTO", "FoodSelling.DTO\FoodSelling.DTO.csproj", "{544B45BB-9746-4EAB-90E3-1DCAE4930501}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodSelling.DTO", "FoodSelling.DTO\FoodSelling.DTO.csproj", "{544B45BB-9746-4EAB-90E3-1DCAE4930501}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
