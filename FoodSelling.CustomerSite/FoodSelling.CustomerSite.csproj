@@ -11,4 +11,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Rating\" />
+    <Folder Include="Pages\Shared\Components\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FoodSelling.DTO\FoodSelling.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

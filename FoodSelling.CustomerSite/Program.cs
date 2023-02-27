@@ -1,7 +1,34 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+
+//Config HttpClient
+builder.Services.AddHttpClient("myclient", client =>
+{
+    client.BaseAddress = new Uri("");
+});
+
+//Session
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "rookiesassignment";
+    options.IdleTimeout = TimeSpan.FromSeconds(2000);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+//Injection
+
+//Razor page
+builder.Services.AddRazorPages()
+    .AddRazorPagesOptions(options => {
+        options.Conventions.AddPageRoute("/Home/Index", "");
+    });
+
+
 
 var app = builder.Build();
 
@@ -20,8 +47,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.UseSession();
+app.UseEndpoints(endpoints =>
+{
+    // Thêm endpoint chuyển đến các trang Razor Page
+    // trong thư mục Pages
+    endpoints.MapRazorPages();
+});
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapRazorPages();
 app.Run();
