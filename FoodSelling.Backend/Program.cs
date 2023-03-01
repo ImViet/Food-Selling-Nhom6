@@ -1,8 +1,13 @@
 using FoodSelling.Backend.Data;
 using FoodSelling.Backend.Entities;
+using FoodSelling.Backend.Interfaces;
 using FoodSelling.Backend.Utilities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using RAShop.Backend.Repositories;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,9 +39,27 @@ builder.Services.AddIdentity<User, Role>(
     ).AddEntityFrameworkStores<FoodSellingDbContext>().AddDefaultTokenProviders();
 
 //JWT
-
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey
+        (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true
+    };
+});
 //Injection
-
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();

@@ -4,7 +4,7 @@ namespace FoodSelling.Backend.Entities
 {
     public class Category
     {
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
         [Required]
         [StringLength(50)]
         public string CategoryName { get; set; }
