@@ -1,4 +1,7 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using FoodSelling.CustomerSite.Interfaces;
+using FoodSelling.CustomerSite.Services;
+
+var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -6,7 +9,7 @@ builder.Services.AddRazorPages();
 //Config HttpClient
 builder.Services.AddHttpClient("myclient", client =>
 {
-    client.BaseAddress = new Uri("");
+    client.BaseAddress = new Uri("https://localhost:7169");
 });
 
 //Session
@@ -21,10 +24,11 @@ builder.Services.AddSession(options =>
 });
 
 //Injection
-
+builder.Services.AddScoped<IAuth, AuthService>();
 //Razor page
 builder.Services.AddRazorPages()
-    .AddRazorPagesOptions(options => {
+    .AddRazorPagesOptions(options =>
+    {
         options.Conventions.AddPageRoute("/Home/Index", "");
     });
 
