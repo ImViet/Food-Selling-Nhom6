@@ -1,5 +1,86 @@
-﻿@page
-@model FoodSelling.CustomerSite.Pages.Shared.Header.HeaderPartialViewModel
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
+    var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
 }
-<h1></h1>
+<nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0 px-4 px-lg-0 flex-column">
+    <div class="header-top d-flex justify-content-around align-items-center pt-1 w-100">
+        <img class="delivery-logo" src="https://phuclong.com.vn/images/common/delivery.png" alt="">
+        <a asp-page="/Index">
+        <img class="shop-logo" src="https://phuclong.com.vn/images/logo_2.png" />
+        </a>
+        <div class="header-right d-flex align-items-center">
+            @if (userName == null)
+            {
+               <div class="auth">
+                    <a class="login-btn p-2" asp-page="/Auth/Login">Đăng nhập</a>
+                </div>
+            }
+            else{
+                <div class="auth nav-item dropdown">
+                    <a class="login-btn p-2 nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-displa="static">Hi @userName</a>
+                    <div class="position-relative">
+                        <div class="dropdown-menu shadow-sm m-0">
+                            <a asp-page="/Auth/Login" asp-page-handler="Logout" class="dropdown-item">Đăng xuất</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        <div class="cart-btn p-2 px-3">
+            <a href="#">
+                <span>Giỏ hàng
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="count-total-cart">0</span>
+                </span>
+            </a>
+        </div>
+        </div>
+    </div>
+    <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-flex" id="navbarCollapse">
+        <div class="navbar-nav">
+            <a href="#" class="nav-item nav-link active">Trang chủ</a>
+            <a href="#" class="nav-item nav-link">About</a>
+            <a href="#" class="nav-item nav-link">Service</a>
+            <a href="#" class="nav-item nav-link">Roadmap</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-displa="static">Level 1</a>
+                <div class="position-relative">
+                    <div class="dropdown-menu shadow-sm m-0">
+                        <a href="#" class="dropdown-item">Menu 1</a>
+                        <a href="#" class="dropdown-item">Menu 2</a>
+                        <a href="#" class="dropdown-item">Menu 3</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Level 2</a>
+                            <div class="position-relative">
+                                <div class="dropdown-menu shadow-sm m-0">
+                                    <a href="#" class="dropdown-item">Menu 1</a>
+                                    <a href="#" class="dropdown-item">Menu 2</a>
+                                    <a href="#" class="dropdown-item">Menu 3</a>
+                                    <div class="nav-item dropdown">
+                                        <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Level 3</a>
+                                        <div class="position-relative">
+                                            <div class="dropdown-menu shadow-sm m-0">
+                                                <a href="#" class="dropdown-item">Menu 1</a>
+                                                <a href="#" class="dropdown-item">Menu 2</a>
+                                                <a href="#" class="dropdown-item">Menu 3</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="contact.html" class="nav-item nav-link">Contact</a>
+            <div class="search-box">
+                    <input class="search-txt" type="text" name="" placeholder="Nhập để tìm kiếm...">
+                <a class="search-btn" href="#">
+                <i class="fas fa-search"></i>
+                </a>
+                </div>
+        </div>
+    </div>
+</nav>

@@ -15,7 +15,7 @@ namespace FoodSelling.Backend.Entities
         public string? Description { get; set; }
         public string? Unit { get; set; }
         public string? Image { get; set; }
-        public int? CategoryId { get; set; }
+        public string? CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public virtual Category? Category { get; set; }
         public IList<Rating>? Ratings { get; set; }

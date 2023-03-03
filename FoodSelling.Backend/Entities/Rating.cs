@@ -7,6 +7,8 @@ namespace FoodSelling.Backend.Entities
     {
         public int RatingId { get; set; }
         public string UserName { get; set; }
+        [ForeignKey("UserName")]
+        public virtual User? User { get; set; }
         [Required]
         public int Star { get; set; }
         public string? Comment { get; set; }

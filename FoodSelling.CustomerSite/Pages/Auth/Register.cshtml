@@ -1,4 +1,58 @@
 ﻿@page
-@model FoodSelling.CustomerSite.Pages.Auth.RegisterModel
+@model FoodSelling.CustomerSite.Pages.Auth.Register
 @{
+    ViewData["Title"] = "Đăng nhập";
+}
+@{
+    <div class="register-form ">    
+            <form asp-page="/Auth/Register" asp-page-handler="Register" id="register" method="post">
+                <div class="avatar">
+                    <img src="https://phuclong.com.vn/images/logo_1.png" alt="">
+                </div>
+                <h4 class="modal-title">Đăng ký</h4>
+                <div class="row">
+                    <div class="form-group col">
+                        <input id="userName" name="UserName" type="text" class="form-control" placeholder="Tài khoản">
+                    </div>
+                    <div class="form-group col">
+                        <input id="email" name="Email" type="email" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <input id="firstName" name="FirstName" type="text" class="form-control" placeholder="Họ">
+                    </div>
+                    <div class="form-group col">
+                        <input id="lastName" name="LastName" type="text" class="form-control" placeholder="Tên">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <input id="identityCard" name="IdentityCard" type="text" class="form-control" placeholder="CCCD">
+                    </div>
+                    <div class="form-group col">
+                        <input id="phoneNumber" name="PhoneNumber" type="text" class="form-control" placeholder="Số điện thoại">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <input id="address" name="Address" type="text" class="form-control" placeholder="Địa chỉ">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col">
+                        <input id="password" name="Password" type="password" class="form-control" placeholder="Mật khẩu">
+                    </div>
+                    <div class="form-group col">
+                        <input id="confirmPassword" name="ConfirmPassword" type="password" class="form-control" placeholder="Xác nhận mật khẩu">
+                    </div>
+                </div>
+            @* <div class="form-group small clearfix">
+    <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
+    <a href="#" class="forgot-link">Forgot Password?</a>
+    </div>  *@
+                <input type="submit" class="btn btn-primary btn-block btn-lg btn-submit-custom" value="Đăng ký">              
+            </form>			
+            <div class="text-center small">Đã tài khoản? <a asp-page="/Auth/Login">Đăng nhập </a><span>ngay</span></div>
+    </div>
 }
