@@ -18,6 +18,10 @@ namespace FoodSelling.CustomerSite.Pages.Auth
             userLogin.UserName = Request.Form["UserName"];
             userLogin.Password = Request.Form["Password"];
             var account = await _authService.LoginAsync(userLogin);
+            if (account == null)
+            {
+                return Redirect("/Auth/Login");
+            }
             string token = account.Token;
             HttpContext.Session.SetString("JWTToken", token);
             HttpContext.Session.SetString("UserName", account.UserName);

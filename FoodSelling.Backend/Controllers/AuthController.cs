@@ -26,7 +26,7 @@ namespace FoodSelling.Backend.Controllers
             return Ok(account);
         }
         [HttpPost]
-        public async Task<ActionResult> RegisterAsync([FromForm] RegisterDto userRegister)
+        public async Task<ActionResult> RegisterAsync([FromBody] RegisterDto userRegister)
         {
             if (userRegister.Password != userRegister.ConfirmPassword)
             {

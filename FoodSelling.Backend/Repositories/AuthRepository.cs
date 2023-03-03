@@ -49,7 +49,7 @@ namespace RAShop.Backend.Repositories
         {
             var user = _mapper.Map<User>(userRegister);
             user.Id = Guid.NewGuid().ToString();
-            user.Role = "Admin";
+            user.Role = "User";
             var result = await _userManager.CreateAsync(user, userRegister.Password);
             if (!result.Succeeded)
             {
