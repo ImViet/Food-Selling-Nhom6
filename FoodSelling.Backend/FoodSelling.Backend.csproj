@@ -26,10 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FoodSelling.DTO\FoodSelling.DTO.csproj" />
   </ItemGroup>
 
