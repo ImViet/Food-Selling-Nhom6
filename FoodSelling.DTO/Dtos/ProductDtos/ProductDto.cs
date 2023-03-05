@@ -1,4 +1,6 @@
-﻿namespace FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
+﻿using FoodSelling.DTO.Dtos.RatingDtos;
+
+namespace FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
 {
     public class ProductDto
     {
@@ -10,8 +12,9 @@
         public string? Description { get; set; }
         public string? Unit { get; set; }
         public string Image { get; set; }
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
         public string CategoryName { get; set; }
-        //public IList<RatingDto> Ratings { get; set; }
+        public IList<RatingDto> Ratings { get; set; }
+
     }
 }

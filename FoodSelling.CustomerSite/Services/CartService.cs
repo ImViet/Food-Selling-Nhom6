@@ -1,5 +1,5 @@
 ﻿using FoodSelling.DTO.Dtos;
-using RAShop.CustomerSite.Interfaces;
+using FoodSelling.CustomerSite.Interfaces;
 
 namespace FoodSelling.CustomerSite.Services
 {

@@ -1,8 +1,8 @@
 using FoodSelling.DTO.Dtos;
 
-namespace RAShop.CustomerSite.Interfaces
+namespace FoodSelling.CustomerSite.Interfaces
 {
-    public interface ICart 
+    public interface ICart
     {
         List<CartDto>? GetCart();
         void AddToCart(int productid);
