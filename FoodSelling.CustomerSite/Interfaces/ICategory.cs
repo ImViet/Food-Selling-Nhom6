@@ -1,8 +1,8 @@
 ﻿using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
 
-namespace RAShop.CustomerSite.Interfaces
+namespace FoodSelling.CustomerSite.Interfaces
 {
-    public interface ICategory 
+    public interface ICategory
     {
         Task<List<CategoryDto>> GetAll();
     }

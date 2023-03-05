@@ -3,7 +3,7 @@ using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using FoodSelling.DTO.Dtos.RatingDtos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RAShop.CustomerSite.Interfaces
+namespace FoodSelling.CustomerSite.Interfaces
 {
     public interface IProduct
     {

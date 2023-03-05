@@ -1,7 +1,7 @@
 ﻿using FoodSelling.DTO.Dtos;
 using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using FoodSelling.DTO.Dtos.RatingDtos;
-using RAShop.CustomerSite.Interfaces;
+using FoodSelling.CustomerSite.Interfaces;
 
 namespace FoodSelling.CustomerSite.Services
 {
