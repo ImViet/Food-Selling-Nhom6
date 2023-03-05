@@ -4,7 +4,7 @@ namespace FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos
 {
     public class CategoryDto
     {
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
