@@ -1,6 +1,6 @@
 using FoodSelling.DTO.Dtos.RatingDtos;
 
-namespace RAShop.CustomerSite.Interfaces
+namespace FoodSelling.CustomerSite.Interfaces
 {
     public interface IRating
     {

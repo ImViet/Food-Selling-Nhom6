@@ -1,6 +1,7 @@
 ﻿using FoodSelling.CustomerSite.Interfaces;
 using FoodSelling.CustomerSite.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +26,7 @@ builder.Services.AddSession(options =>
 
 //Injection
 builder.Services.AddScoped<IAuth, AuthService>();
+builder.Services.AddScoped<ICategory, CategoryService>();
 //Razor page
 builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options =>
