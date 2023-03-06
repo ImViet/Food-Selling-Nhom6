@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Đăng nhập";
 }
-@{
+<div class="container">
     <div class="register-form ">    
             <form asp-page="/Auth/Register" asp-page-handler="Register" id="register" method="post">
                 <div class="avatar">
@@ -55,4 +55,4 @@
             </form>			
             <div class="text-center small">Đã tài khoản? <a asp-page="/Auth/Login">Đăng nhập </a><span>ngay</span></div>
     </div>
-}
+</div>

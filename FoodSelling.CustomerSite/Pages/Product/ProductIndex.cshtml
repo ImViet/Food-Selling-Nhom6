@@ -1,4 +1,43 @@
 ﻿@page
+@using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
 @model FoodSelling.CustomerSite.Pages.Product.ProductIndexModel
 @{
+    var pageCurrent = (int)ViewData["page"];
+    int totalPages = (int)ViewData["totalPages"];
+    string sort = (string)ViewData["sort"];
+    var products = ViewData["products"] as List<ProductDto>;
 }
+ <div class="container">
+    <div class="row">
+        <div class="d-flex flex-wrap">
+            @foreach (var item in products)
+            {
+                <div class="card-fix">
+                    <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
+                        <img title="@item.ProductName" src="~/img/@item.Image" class="card-img-top" alt="@item.ProductName" asp-append-version="true">
+                    </a>
+                    <div class="card-body">
+                        @{
+                            var name = "";
+                            if (item.ProductName.Length < 26)
+                            {
+                                name = item.ProductName;
+                            }
+                            else
+                            {
+                                name = item.ProductName.Substring(0, 25) + "...";
+                            }
+                        }
+                        <h5 class="card-title ms-3" style="font-size: 18px;">@name</h5>
+                        <hr>
+                        <div class="row card-bottom">
+                        <p class="card-text text-center fs-5 col" style="color:#0C713D; margin: 4px 0px; font-weight: 700;">
+                            @string.Format("{0:#,##0.##}₫", @item.Price)</p>
+                        <button class="col btn-addtocart-index" type="submit">Đặt ngay</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+ </div>

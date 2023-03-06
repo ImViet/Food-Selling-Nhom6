@@ -1,4 +1,265 @@
 ﻿@page
 @model FoodSelling.CustomerSite.Pages.Product.GetProductDetailModel
+@using FoodSelling.DTO.Dtos.RatingDtos
+@using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
+    var product = ViewData["product"] as ProductDto;
+    var ratingAvgtemp = Convert.ToDouble(ViewData["ratingAvg"]);
+    var ratingAvg = string.Format("{0:0.##}%", (Convert.ToDouble(ViewData["ratingAvg"]) / 5) * 100);
+    var listRatings = ViewData["listRatings"] as List<RatingDto>;
+    var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
 }
+
+<div class="container">
+    <section class="py-4">
+    <div class="container px-4 px-lg-5">
+        @* <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
+                @if (product != null)
+                {
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductBySubCateId" asp-route-cateid="@Model.product.SubCategoryId">@Model.product.SubCategoryName</a></li>
+                }
+                else
+                {
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
+                }
+            </ol>
+        </nav> *@
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" src="~/img/@product.Image" alt="..." asp-append-version="true" style="max-width: 80%"/>
+            </div>
+            <div class="col-md-6">
+                @* <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm:
+                    @Model.product.CategoryName
+                    </div> *@
+                <h1 class="display-6 fw-bolder">@product.ProductName</h1>
+                @* <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @product.Origin</div> *@
+                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @product.Unit
+                </div>
+                <div class="fs-5 mb-1">
+                    Giá:
+                    <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", product.Price)</span>
+                </div>
+                <div class="star-ratings" style="display: inline-block; font-size: 18px">
+                    <div class="fill-ratings" id="star-avg" style="width: @ratingAvg;">
+                        <span>★★★★★</span>
+                    </div>
+                    <div class="empty-ratings">
+                        <span>★★★★★</span>
+                    </div>
+                </div>
+                <hr>
+                <pre class="commit" style="white-space: pre-line;">
+        @product.Description
+                        </pre>
+                <div class="">
+                    <a class="btn-addtocart" asp-page="/Cart/ShoppingCart" asp-page-handler="AddToCart"
+                        asp-route-id="@product.ProductId">
+                        <div class="glyphicon glyphicon-shopping-cart"></div>
+                        Thêm vào giỏ hàng
+                    </a>
+                    <a class="btn-backtolist" asp-page="/Product/ProductIndex">
+                        <div class="glyphicon glyphicon-backward"></div>
+                        Quay lại
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="background-color: #F5F5F5;">
+    <div class="accordion" id="accordionPanelsStayOpenExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                <button class="accordion-button fs-5" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseTwo"
+                    style="border-bottom: 3px solid #0c6363; display: inline-block">
+                    ĐÁNH GIÁ SẢN PHẨM
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse show"
+                aria-labelledby="panelsStayOpen-headingTwo">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="star-ratings" style="display: inline-block;">
+                                <div class="fill-ratings" id="star-avg" style="width: @ratingAvg;">
+                                    <span>★★★★★</span>
+                                </div>
+                                <div class="empty-ratings">
+                                    <span>★★★★★</span>
+                                </div>
+                                <p>@ratingAvg (@listRatings?.Count() đánh giá)</p>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" data-bs-whatever="@@getbootstrap"
+                                style="display:block ;">Viết đánh giá</button>
+                            @* Start form rating *@
+
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Đánh giá:
+                                                @product.ProductName</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form asp-page="/Product/GetProductDetail" asp-page-handler="CreateRating"
+                                                method="post" onsubmit="">
+
+                                                <div class="star-rating">
+                                                    <input type="radio" id="5-stars" name="Star" value="5" checked />
+                                                    <label for="5-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="4-stars" name="Star" value="4" />
+                                                    <label for="4-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="3-stars" name="Star" value="3" />
+                                                    <label for="3-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="2-stars" name="Star" value="2" />
+                                                    <label for="2-stars" class="star">&#9733;</label>
+                                                    <input type="radio" id="1-star" name="Star" value="1" />
+                                                    <label for="1-star" class="star">&#9733;</label>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <textarea class="form-control" name="Comment" id="comment"
+                                                        placeholder="Viết nhận xét..." required></textarea>
+                                                </div>
+                                                <div class="mb-3" hidden>
+                                                    <label for="productid" name="Star" class="col-form-label">Số
+                                                        sao:</label>
+                                                    <input type="text" class="form-control" name="ProductId"
+                                                        value="@product.ProductId" id="productid">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary">Đánh giá</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @* End form rating *@
+                        </div>
+                        <div class="col-8">
+                            @{
+                                if (ratingAvgtemp == 0)
+                                {
+                                    <h3>Chưa có đánh giá</h3>
+                                }
+                                else
+                                {
+                                    foreach (var rating in listRatings)
+                                    {
+                                        <div class="row" style="min-height: 100px; margin-bottom: 15px;">
+                                            <div>
+                                                @{
+                                                    var i = 0;
+                                                    while (i < rating.Star)
+                                                    {
+                                                        <i style="color: #FDD836;" class="fas fa-star"></i>
+                                                        i++;
+                                                    }
+                                                }
+                                                <p>@rating.CreatedDate</p>
+                                                <p>@rating.Comment</p>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<style>
+    .accordion-button:not(.collapsed) {
+        background-color: #fff;
+        color: #0c6363;
+    }
+
+    .accordion-button:hover {
+        border-color: #fff;
+        box-shadow: none;
+    }
+
+    .accordion-button:focus {
+        border-color: #fff;
+        box-shadow: none;
+    }
+
+    .star-rating {
+        display: flex;
+        flex-direction: row-reverse;
+        font-size: 3.5em;
+        justify-content: space-around;
+        padding: 0 .2em;
+        text-align: center;
+        width: 5em;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    .star-rating :checked~label {
+        color: #f90;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover~label {
+        color: #fc0;
+    }
+
+    .star-ratings {
+        unicode-bidi: bidi-override;
+        color: #ccc;
+        font-size: 64px;
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .fill-ratings {
+        color: #e7711b;
+        padding: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
+    // Allows us to grab the width of the span elements
+    span {
+        display: inline-block;
+    }
+
+    .empty-ratings {
+        padding: 0;
+        display: block;
+        z-index: 0;
+    }
+
+    .star-ratings>p {
+        font-size: 15px;
+    }
+</style>
