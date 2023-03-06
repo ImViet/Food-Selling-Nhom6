@@ -1,8 +1,8 @@
 @model List<FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos.CategoryDto>
-<a href="#" class="nav-item nav-link">Sản phẩm</a>
+<a asp-page="/Product/ProductIndex" class="nav-item nav-link">Tất cả sản phẩm</a>
 @foreach (var item in Model)
 {
-<a href="#" class="nav-item nav-link">@item.CategoryName</a>
+<a asp-page="/Product/GetProductByCateId" asp-route-cateId="@item.CategoryId" class="nav-item nav-link">@item.CategoryName</a>
 }
 
 @* <div class="nav-item dropdown">

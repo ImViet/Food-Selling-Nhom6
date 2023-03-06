@@ -1,0 +1,58 @@
+.card-fix {
+  box-shadow: none;
+  transition: transform 0.7s;
+  border: none;
+  margin: 12px;
+  width: 23%;
+  border-bottom: 2px solid transparent;
+}
+.card-fix:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  -ms-transform: scale(0.5); /* IE 9 */
+  -webkit-transform: scale(0.5); /* Safari 3-8 */
+  transform: scale(1.03);
+  border: rgba(0, 0, 0, 0.2);
+  border-bottom: 3px solid #0c6363;
+}
+
+.btn-addtocart {
+  background-color: white;
+  border: none;
+  color: black;
+  padding: 8px 16px;
+  display: inline-block;
+  font-size: 16px;
+  margin: auto;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid #c47135;
+  border-radius: 20px;
+}
+
+.btn-addtocart:hover {
+  background-color: #0c6363;
+  color: #ff2;
+  text-decoration: none;
+}
+
+.btn-backtolist {
+  background-color: #0c6363;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  display: inline-block;
+  font-size: 16px;
+  margin: auto;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  text-decoration: none;
+  border: 2px solid #c47135;
+  border-radius: 20px;
+}
+
+.btn-backtolist:hover {
+  background-color: #0c6363;
+  color: #ff2;
+  text-decoration: none;
+}

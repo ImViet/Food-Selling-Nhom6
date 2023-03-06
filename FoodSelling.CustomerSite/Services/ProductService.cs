@@ -2,42 +2,54 @@
 using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using FoodSelling.DTO.Dtos.RatingDtos;
 using FoodSelling.CustomerSite.Interfaces;
+using FoodSelling.CustomerSite.Extensions;
 
 namespace FoodSelling.CustomerSite.Services
 {
     public class ProductService : IProduct
     {
-        public Task<RatingDto> CreateRating(CreateRatingDto newRating)
+        private readonly IHttpClientFactory _clientFactory;
+        public ProductService(IHttpClientFactory clientFactory)
         {
-            throw new NotImplementedException();
+            _clientFactory = clientFactory;
+        }
+        public async Task<PagingDto<ProductDto>> GetAll(string sortOrder, int pageNumber)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/getallproduct?sort={sortOrder}&pageCurrent={pageNumber}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDto<ProductDto>>(url);
+            return data;
         }
 
-        public Task<PagingDto<ProductDto>> GetAll(string sortOrder, int pageNumber)
+        public async Task<PagingDto<ProductDto>> GetProductByCateId(string cateid, string sortOrder, int pageNumber)
         {
-            throw new NotImplementedException();
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/getproductbycateid?cateid={cateid}&sort={sortOrder}&pageCurrent={pageNumber}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDto<ProductDto>>(url);
+            return data;
         }
 
-        public Task<PagingDto<ProductDto>> GetProductByCateId(int id, string sortOrder, int pageNumber)
+        public async Task<ProductDto> GetProductDetail(int id)
         {
-            throw new NotImplementedException();
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/getproductbyid/{id}";
+            var data = httpClient.GetDataFromAPIAsync<ProductDto>(url);
+            return data;
         }
 
-        public Task<PagingDto<ProductDto>> GetProductBySubCateId(int id, string sortOrder, int pageNumber)
+        public async Task<double> GetRatingAVG(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProductDto> GetProductDetail(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<double> GetRatingAVG(int id)
-        {
-            throw new NotImplementedException();
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/ratingavg/{id}";
+            var data = httpClient.GetDataFromAPIAsync<double>(url);
+            return data;
         }
 
         public Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber)
+        {
+            throw new NotImplementedException();
+        }
+        public Task<RatingDto> CreateRating(CreateRatingDto newRating)
         {
             throw new NotImplementedException();
         }

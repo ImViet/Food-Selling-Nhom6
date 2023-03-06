@@ -27,6 +27,9 @@ builder.Services.AddSession(options =>
 //Injection
 builder.Services.AddScoped<IAuth, AuthService>();
 builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddScoped<IProduct, ProductService>();
+builder.Services.AddScoped<IRating, RatingService>();
+
 //Razor page
 builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options =>
