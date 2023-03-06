@@ -13,7 +13,7 @@
             {
                 <div class="card-fix">
                     <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
-                        <img title="@item.ProductName" src="~/img/TraTraiCay.png" class="card-img-top" alt="@item.ProductName">
+                        <img title="@item.ProductName" src="~/img/@item.Image" class="card-img-top" alt="@item.ProductName">
                     </a>
                     <div class="card-body">
                         @{
