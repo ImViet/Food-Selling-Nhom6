@@ -4,24 +4,26 @@
     ViewData["Title"] = "Đăng nhập";
 }
 @{
-    <div class="login-form">    
-            <form asp-page="/Auth/Login" asp-page-handler="Login" id="login" method="post">
-                <div class="avatar">
-                    <img src="https://phuclong.com.vn/images/logo_1.png" alt="">
-                </div>
-                <h4 class="modal-title">Đăng nhập</h4>
-                <div class="form-group">
-                    <input id="userName" name="UserName" type="text" class="form-control" placeholder="Tài khoản">
-                </div>
-                <div class="form-group">
-                    <input id="password" name="Password" type="password" class="form-control" placeholder="Mật khẩu">
-                </div>
-            @* <div class="form-group small clearfix">
-    <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
-    <a href="#" class="forgot-link">Forgot Password?</a>
-    </div>  *@
-                <input type="submit" class="btn btn-primary btn-block btn-lg btn-submit-custom" value="Đăng nhập">              
-            </form>			
-            <div class="text-center small">Chưa có tài khoản? <a asp-page="/Auth/Register">Đăng ký </a><span>ngay</span></div>
+    <div class="container">
+        <div class="login-form">    
+                <form asp-page="/Auth/Login" asp-page-handler="Login" id="login" method="post">
+                    <div class="avatar">
+                        <img src="https://phuclong.com.vn/images/logo_1.png" alt="">
+                    </div>
+                    <h4 class="modal-title">Đăng nhập</h4>
+                    <div class="form-group">
+                        <input id="userName" name="UserName" type="text" class="form-control" placeholder="Tài khoản">
+                    </div>
+                    <div class="form-group">
+                        <input id="password" name="Password" type="password" class="form-control" placeholder="Mật khẩu">
+                    </div>
+                @* <div class="form-group small clearfix">
+        <label class="checkbox-inline"><input type="checkbox"> Remember me</label>
+        <a href="#" class="forgot-link">Forgot Password?</a>
+        </div>  *@
+                    <input type="submit" class="btn btn-primary btn-block btn-lg btn-submit-custom" value="Đăng nhập">              
+                </form>			
+                <div class="text-center small">Chưa có tài khoản? <a asp-page="/Auth/Register">Đăng ký </a><span>ngay</span></div>
+        </div>
     </div>
 }

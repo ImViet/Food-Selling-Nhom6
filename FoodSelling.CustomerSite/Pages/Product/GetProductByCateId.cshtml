@@ -7,7 +7,8 @@
     string sort = (string)ViewData["sort"];
     var products = ViewData["products"] as List<ProductDto>;
 }
- <div class="row">
+ <div class="container">
+    <div class="row">
         <div class="d-flex flex-wrap">
             @foreach (var item in products)
             {
@@ -39,3 +40,5 @@
             }
         </div>
     </div>
+
+ </div>

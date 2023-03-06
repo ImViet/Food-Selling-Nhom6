@@ -11,7 +11,8 @@
     var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
 }
 
-<section class="py-4">
+<div class="container">
+    <section class="py-4">
     <div class="container px-4 px-lg-5">
         @* <nav>
             <ol class="breadcrumb">
@@ -26,12 +27,12 @@
                 {
                     <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
                 }
-
-
             </ol>
         </nav> *@
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="~/img/@product.Image" alt="..." asp-append-version="true"/></div>
+            <div class="col-md-6">
+                <img class="card-img-top mb-5 mb-md-0" src="~/img/@product.Image" alt="..." asp-append-version="true" style="max-width: 80%"/>
+            </div>
             <div class="col-md-6">
                 @* <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm:
                     @Model.product.CategoryName
@@ -53,11 +54,8 @@
                     </div>
                 </div>
                 <hr>
-                <pre class="commit">
-        CAM KẾT KHI MUA SẮM
-        - Tư vấn nhiệt tình & tận tâm.
-        - Đảm bảo nguồn gốc & chất lượng sản phẩm.
-        - Tích lũy điểm, nâng hạng thẻ VIP & tận hưởng ưu đãi đặc quyền.
+                <pre class="commit" style="white-space: pre-line;">
+        @product.Description
                         </pre>
                 <div class="">
                     <a class="btn-addtocart" asp-page="/Cart/ShoppingCart" asp-page-handler="AddToCart"
@@ -74,30 +72,7 @@
         </div>
     </div>
 </section>
-<div style="background-color: #F5F5F5; padding-bottom: 20px;">
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                <button class="accordion-button fs-5" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne"
-                    style="border-bottom: 3px solid #0c6363; display: inline-block">
-                    CHI TIẾT SẢN PHẨM
-                </button>
-            </h2>
-            <div class="container">
-                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
-                    aria-labelledby="panelsStayOpen-headingOne">
-                    <div class="accordion-body" style="white-space: pre-line">
-                       @product.Description
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<div style="background-color: #F5F5F5; padding-bottom: 20px;">
+<div style="background-color: #F5F5F5;">
     <div class="accordion" id="accordionPanelsStayOpenExample">
         <div class="accordion-item">
             <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
@@ -208,6 +183,7 @@
     </div>
 </div>
 
+</div>
 <style>
     .accordion-button:not(.collapsed) {
         background-color: #fff;

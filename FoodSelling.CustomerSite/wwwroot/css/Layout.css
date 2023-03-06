@@ -43,3 +43,22 @@ label.error {
 input.error {
   border: 1px solid red;
 }
+
+.img-intro {
+  width: 100%;
+  margin-top: -22px;
+}
+.img-intro > img {
+  width: 100%;
+}
+
+.mockup {
+  padding: 60px;
+}
+
+.img-mockup {
+  margin: 10px 0;
+}
+.img-mockup > img {
+  max-width: 80%;
+}
