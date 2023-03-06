@@ -2,8 +2,8 @@
   box-shadow: none;
   transition: transform 0.7s;
   border: none;
-  margin: 12px;
-  width: 23%;
+  margin: 24px;
+  width: 21%;
   border-bottom: 2px solid transparent;
 }
 .card-fix:hover {
@@ -15,7 +15,13 @@
   border-bottom: 3px solid #0c6363;
 }
 
-.btn-addtocart {
+.card-bottom {
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-addtocart,
+.btn-addtocart-index {
   background-color: white;
   border: none;
   color: black;
@@ -30,10 +36,17 @@
   border-radius: 20px;
 }
 
-.btn-addtocart:hover {
+.btn-addtocart:hover,
+.btn-addtocart-index:hover {
   background-color: #0c6363;
   color: #ff2;
   text-decoration: none;
+}
+
+.btn-addtocart-index {
+  padding: 6px 12px;
+  text-transform: uppercase;
+  border-radius: 10px;
 }
 
 .btn-backtolist {
