@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Text;
+using System.Text.RegularExpressions;
+using AutoMapper;
 using FoodSelling.Backend.Data;
 using FoodSelling.Backend.Entities;
 using FoodSelling.Backend.Interfaces;
@@ -65,9 +67,32 @@ namespace FoodSelling.Backend.Repositories
             return productDto;
         }
 
-        public Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber, int pageSize)
+        public async Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber, int pageSize)
         {
-            throw new NotImplementedException();
+            //Convert searchstring
+             var str = ConvertToUnSign(searchString);
+            //Query product
+            var productsQuery = _context.Products.Where(delegate (Product p)
+                                        {
+                                            if(ConvertToUnSign(p.ProductName).IndexOf(searchString, StringComparison.CurrentCultureIgnoreCase) >= 0)
+                                                return true;
+                                            else
+                                                return false;
+                                        }).AsQueryable();
+            //Sort
+            productsQuery = Sorting(productsQuery, sortOrder);
+
+            var countProduct = productsQuery.Count();
+
+            //Paging
+            var products = productsQuery.Skip((pageNumber - 1) * pageSize)
+                                            .Take(pageSize)
+                                            .Include(x => x.Category)
+                                            .Include(x => x.Ratings)
+                                            .ToList();
+            var listProductDto = _mapper.Map<List<ProductDto>>(products);
+            var totalPages = (int)Math.Ceiling((double)countProduct / PagingDto<ProductDto>.PAGESIZE);
+            return new PagingDto<ProductDto> { TotalPages = totalPages, Items = listProductDto };
         }
         public async Task<double> RatingAVG(int id)
         {
@@ -104,6 +129,22 @@ namespace FoodSelling.Backend.Repositories
                     break;
             }
             return products;
+        }
+        private string ConvertToUnSign(string input)
+        {
+            input = input.Trim();
+            for (int i = 0x20; i < 0x30; i++)
+            {
+                input = input.Replace(((char)i).ToString(), " ");
+            }
+            Regex regex = new Regex(@"\p{IsCombiningDiacriticalMarks}+");
+            string str = input.Normalize(NormalizationForm.FormD);
+            string str2 = regex.Replace(str, string.Empty).Replace('đ', 'd').Replace('Đ', 'D');
+            while (str2.IndexOf("?") >= 0)
+            {
+                str2 = str2.Remove(str2.IndexOf("?"), 1);
+            }
+            return str2;
         }
     }
 }

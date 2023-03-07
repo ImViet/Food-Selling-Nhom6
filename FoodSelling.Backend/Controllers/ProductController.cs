@@ -30,6 +30,11 @@ namespace FoodSelling.Backend.Controllers
         {
             return await _productRepository.GetProductById(id);
         }
+        [HttpGet()]
+        public async Task<ActionResult<PagingDto<ProductDto>>> SearchProducts([FromQuery(Name = "searchstring")] string searchString = "", [FromQuery(Name = "sort")] string sortOrder = "0", [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
+        {
+            return await _productRepository.SearchProducts(searchString, sortOrder, pageNumber, PagingDto<ProductDto>.PAGESIZE);
+        }
         [HttpGet("{id}")]
         public async Task<double> RatingAVG(int id)
         {

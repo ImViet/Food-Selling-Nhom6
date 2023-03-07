@@ -45,9 +45,12 @@ namespace FoodSelling.CustomerSite.Services
             return data;
         }
 
-        public Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber)
+        public async Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber)
         {
-            throw new NotImplementedException();
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = $"/product/searchproducts?searchstring={searchString}&sort={sortOrder}&pageCurrent={pageNumber}";
+            var data = httpClient.GetDataFromAPIAsync<PagingDto<ProductDto>>(url);
+            return data;
         }
         public Task<RatingDto> CreateRating(CreateRatingDto newRating)
         {
