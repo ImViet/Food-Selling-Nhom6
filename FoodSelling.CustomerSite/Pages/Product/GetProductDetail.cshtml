@@ -14,21 +14,20 @@
 <div class="container">
     <section class="py-4">
     <div class="container px-4 px-lg-5">
-        @* <nav>
+        <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
                 @if (product != null)
                 {
-                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
-                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductBySubCateId" asp-route-cateid="@Model.product.SubCategoryId">@Model.product.SubCategoryName</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@product.CategoryId">@product.CategoryName</a></li>
                 }
                 else
                 {
-                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
+                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@product.CategoryId">@product.CategoryName</a></li>
                 }
             </ol>
-        </nav> *@
+        </nav>
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
                 <img class="card-img-top mb-5 mb-md-0" src="~/img/@product.Image" alt="..." asp-append-version="true" style="max-width: 80%"/>

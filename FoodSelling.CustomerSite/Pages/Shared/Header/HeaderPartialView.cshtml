@@ -43,11 +43,13 @@
             <a href="#" class="nav-item nav-link active">Trang chủ</a>
             @await Component.InvokeAsync("Category")
             <a href="contact.html" class="nav-item nav-link">Về chúng tôi</a>
-            <div class="search-box">
-                    <input class="search-txt" type="text" name="" placeholder="Nhập để tìm kiếm...">
-                <a class="search-btn" href="#">
-                <i class="fas fa-search"></i>
-                </a>
+            <div class="">
+                <form class="search-box" role="search" method="get">
+                    <input class="search-txt" type="text" name="searchString" placeholder="Nhập để tìm kiếm..." required>
+                    <button type="submit" class="search-btn" asp-page="/Product/SearchProduct" >
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
                 </div>
         </div>
     </div>
