@@ -1,6 +1,7 @@
 ﻿using FoodSelling.CustomerSite.Interfaces;
 using FoodSelling.CustomerSite.Services;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +26,11 @@ builder.Services.AddSession(options =>
 
 //Injection
 builder.Services.AddScoped<IAuth, AuthService>();
+builder.Services.AddScoped<ICategory, CategoryService>();
+builder.Services.AddScoped<IProduct, ProductService>();
+builder.Services.AddScoped<IRating, RatingService>();
+builder.Services.AddScoped<ICart, CartService>();
+
 //Razor page
 builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options =>
@@ -58,8 +64,8 @@ app.UseEndpoints(endpoints =>
     // trong thư mục Pages
     endpoints.MapRazorPages();
 });
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+   name: "default",
+   pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 app.Run();

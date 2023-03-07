@@ -67,7 +67,7 @@
 }
 
 .shop-logo {
-  max-width: 80px;
+  max-width: 70px;
 }
 
 .login-btn {
@@ -134,6 +134,8 @@
   align-items: center;
   text-decoration: none;
   transition: 0.8s;
+  border: none;
+  background-color: transparent;
 }
 .search-txt {
   border: none;

@@ -43,3 +43,49 @@ label.error {
 input.error {
   border: 1px solid red;
 }
+
+.introduce {
+  background-image: url(https://phuclong.com.vn/uploads/banner/6313d6d02ac48e-2949308c6b040fcoffeecopy.png);
+  background-position: right bottom;
+  background-repeat: no-repeat;
+  background-size: 500px;
+}
+.img-intro {
+  width: 100%;
+  margin-top: -22px;
+}
+.img-intro > img {
+  width: 100%;
+}
+
+.mockup {
+  padding: 60px;
+}
+
+.img-mockup {
+  margin: 10px 0;
+}
+.img-mockup > img {
+  max-width: 70%;
+}
+
+.breadcrumb {
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  list-style: none;
+  background-color: #f5d7da;
+  border-radius: 0.25rem;
+}
+.breadcrumb li {
+  text-decoration: none;
+  font-size: 18px;
+}
+.breadcrumb a {
+  text-decoration: none;
+  color: #000;
+}
+.breadcrumb a:hover {
+  text-decoration: none;
+  color: #0c6363;
+}

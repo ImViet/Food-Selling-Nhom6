@@ -1,4 +1,86 @@
 ﻿@page
+@using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
 @model FoodSelling.CustomerSite.Pages.Product.ProductIndexModel
 @{
+    var pageCurrent = (int)ViewData["page"];
+    int totalPages = (int)ViewData["totalPages"];
+    string sort = (string)ViewData["sort"];
+    var products = ViewData["products"] as List<ProductDto>;
+}
+ <div class="container">
+    <div class="row">
+           <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
+                <li class="breadcrumb-item active">Tất cả sản phẩm</li>
+            </ol>
+        </nav>
+        <div class="d-flex flex-wrap">
+            @foreach (var item in products)
+            {
+                <div class="card-fix">
+                    <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
+                        <img title="@item.ProductName" src="~/img/@item.Image" class="card-img-top" alt="@item.ProductName" asp-append-version="true">
+                    </a>
+                    <div class="card-body">
+                        @{
+                            var name = "";
+                            if (item.ProductName.Length < 26)
+                            {
+                                name = item.ProductName;
+                            }
+                            else
+                            {
+                                name = item.ProductName.Substring(0, 25) + "...";
+                            }
+                        }
+                        <h5 class="card-title ms-3" style="font-size: 18px;">@name</h5>
+                        <hr>
+                        <div class="row card-bottom">
+                        <p class="card-text text-center fs-5 col" style="color:#0C713D; margin: 4px 0px; font-weight: 700;">
+                            @string.Format("{0:#,##0.##}₫", @item.Price)</p>
+                        <button class="col btn-addtocart-index ajax-btn-addtocart" data-id="@item.ProductId" type="submit">Đặt ngay</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+ </div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script asp-append-version="true">
+        $(document).ready(function(){
+            $(".ajax-btn-addtocart").click(function(){
+                $.ajax({
+                    url: "/Cart/AddToCartUsingAjax",
+                    type: 'POST',
+                    data: {
+                        id: $(this).data("id"),
+                    },
+                    success: function(data){
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm vào giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                        var countItem = JSON.parse(data.countItem);
+                        $(".count-total-cart").html(parseInt(countItem, Number));
+                    },
+                    error: function(data){
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                    },
+                });
+            });
+        });
+    </script>
 }

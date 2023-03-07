@@ -1,6 +1,7 @@
 using FoodSelling.Backend.Data;
 using FoodSelling.Backend.Entities;
 using FoodSelling.Backend.Interfaces;
+using FoodSelling.Backend.Repositories;
 using FoodSelling.Backend.Utilities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -60,6 +61,9 @@ builder.Services.AddAuthentication(options =>
 });
 //Injection
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();

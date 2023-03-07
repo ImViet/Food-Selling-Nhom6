@@ -1,0 +1,37 @@
+@model List<FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos.CategoryDto>
+<a asp-page="/Product/ProductIndex" class="nav-item nav-link">Tất cả sản phẩm</a>
+@foreach (var item in Model)
+{
+<a asp-page="/Product/GetProductByCateId" asp-route-cateId="@item.CategoryId" class="nav-item nav-link">@item.CategoryName</a>
+}
+
+@* <div class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-displa="static">Level 1</a>
+    <div class="position-relative">
+        <div class="dropdown-menu shadow-sm m-0">
+            <a href="#" class="dropdown-item">Menu 1</a>
+            <a href="#" class="dropdown-item">Menu 2</a>
+            <a href="#" class="dropdown-item">Menu 3</a>
+            <div class="nav-item dropdown">
+                <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Level 2</a>
+                <div class="position-relative">
+                    <div class="dropdown-menu shadow-sm m-0">
+                        <a href="#" class="dropdown-item">Menu 1</a>
+                        <a href="#" class="dropdown-item">Menu 2</a>
+                        <a href="#" class="dropdown-item">Menu 3</a>
+                        <div class="nav-item dropdown">
+                            <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown">Level 3</a>
+                            <div class="position-relative">
+                                <div class="dropdown-menu shadow-sm m-0">
+                                    <a href="#" class="dropdown-item">Menu 1</a>
+                                    <a href="#" class="dropdown-item">Menu 2</a>
+                                    <a href="#" class="dropdown-item">Menu 3</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> *@
