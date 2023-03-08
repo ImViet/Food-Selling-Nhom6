@@ -1,0 +1,76 @@
+.accordion-button:not(.collapsed) {
+  background-color: #fff;
+  color: #0c6363;
+}
+
+.accordion-button:hover {
+  border-color: #fff;
+  box-shadow: none;
+}
+
+.accordion-button:focus {
+  border-color: #fff;
+  box-shadow: none;
+}
+
+.star-rating {
+  display: flex;
+  flex-direction: row-reverse;
+  font-size: 3.5em;
+  justify-content: space-around;
+  padding: 0 0.2em;
+  text-align: center;
+  width: 5em;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star-rating :checked ~ label {
+  color: #f90;
+}
+
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: #fc0;
+}
+
+.star-ratings {
+  unicode-bidi: bidi-override;
+  color: #ccc;
+  font-size: 64px;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.fill-ratings {
+  color: #e7711b;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  display: block;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+span {
+  display: inline-block;
+}
+
+.empty-ratings {
+  padding: 0;
+  display: block;
+  z-index: 0;
+}
+
+.star-ratings > p {
+  font-size: 15px;
+}
