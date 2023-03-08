@@ -41,8 +41,8 @@
                   </div>
                 </td>
                 <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Product.Price)</td>
-                <td class="align-middle p-4"><input id="item-quantity" data-id="@item.Product.ProductId" type="number" class="form-control text-center" min="1" value="@item.Quantity"></td>
-                <td class="text-right font-weight-semibold align-middle p-4"><span class="total-item">@string.Format("{0:#,##0.##}₫", @item.Total)</span></td>
+                <td class="align-middle p-4"><input id="@($"item-quantity-{@item.Product.ProductId}")" data-id="@item.Product.ProductId" type="number" class="form-control text-center item-quantity" min="1" value="@item.Quantity"></td>
+                <td class="text-right font-weight-semibold align-middle p-4"><span id="@($"item-total-{@item.Product.ProductId}")">@string.Format("{0:#,##0.##}₫", @item.Total)</span></td>
                 <td class="text-center align-middle px-0"><a asp-page="ShoppingCart" asp-page-handler="RemoveItem" asp-route-id="@item.Product.ProductId" class="shop-tooltip close float-none text-danger"
                   title="" data-original-title="Remove">X</a></td>
               </tr>
@@ -57,7 +57,7 @@
         <div class="d-flex">
           <div class="text-right mt-4 ">
             <label class="text-muted font-weight-normal m-0">Tổng tiền</label>
-            <div class="text-large"><span class="total-pay">@string.Format("{0:#,##0.##}₫", @total)</span></div>
+            <div class="text-large"><span class="total-pay">@string.Format("{0:#,##0.##} ₫", @total)</span></div>
           </div>
         </div>
       </div>
@@ -74,18 +74,20 @@
 @section scripts{
   <script asp-append-version="true">
    $(document).ready(function (){
-     $("#item-quantity").change(function (){
+     $(".item-quantity").change(function (){
         $.ajax({
           url: "/Cart/IncreaseItemInCart",
           type: 'POST',
           data: {
               id: $(this).data("id"),
-              quantity: $("#item-quantity").val(),
+              quantity: $("#item-quantity-"+ $(this).data("id")).val(),
           },
           success: function(data) {
             console.log(data);
-            $(".total-item").html(parseInt(data.total, Number));
-            $(".total-pay").html(parseInt(data.totaltopay, Number));
+            $("#item-total-"+ parseInt(data.id)).html(new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(parseInt(data.total, Number)));
+            $(".total-pay").html(new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'}).format(parseInt(data.totalToPay, Number)));
+            var countItem = JSON.parse(data.countItem);
+            $(".count-total-cart").html(parseInt(countItem, Number));
           },
           error:{
           }
@@ -93,5 +95,10 @@
       });
    }
     ); 
+    $(document).ready(function(){
+      $(".item-quantity").change(function (){
+        console.log($("#item-total-" + $(this).data("id")));
+      });
+    });
   </script>
 }

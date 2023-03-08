@@ -26,6 +26,7 @@ namespace FoodSelling.CustomerSite.Controllers
             return new JsonResult(
                 new
                 {
+                    Id = id,
                     CountItem = HttpContext.Session.GetString("CountCart"),
                     Total = item.Total,
                     TotalToPay = cart.Sum(p => p.Total)

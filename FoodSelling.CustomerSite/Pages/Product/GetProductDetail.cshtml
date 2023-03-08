@@ -10,7 +10,7 @@
     var listRatings = ViewData["listRatings"] as List<RatingDto>;
     var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
 }
-
+<link rel="stylesheet" href="~/css/Rating.css" asp-append-version="true"/>
 <div class="container">
     <section class="py-4">
     <div class="container px-4 px-lg-5">
@@ -96,7 +96,7 @@
                                 </div>
                                 <p>@ratingAvg (@listRatings?.Count() đánh giá)</p>
                             </div>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            <button type="button" id="btn-rating" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop" data-bs-whatever="@@getbootstrap"
                                 style="display:block ;">Viết đánh giá</button>
                             @* Start form rating *@
@@ -181,84 +181,26 @@
         </div>
     </div>
 </div>
-
 </div>
-<style>
-    .accordion-button:not(.collapsed) {
-        background-color: #fff;
-        color: #0c6363;
-    }
 
-    .accordion-button:hover {
-        border-color: #fff;
-        box-shadow: none;
-    }
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            $("#btn-rating").click(function(){
+                $.ajax({
+                    url: "/Session/CheckUserLogin",
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data);
+                        if(data.result == false)
+                        {
+                            location.href="/Auth/Login"
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+}
 
-    .accordion-button:focus {
-        border-color: #fff;
-        box-shadow: none;
-    }
 
-    .star-rating {
-        display: flex;
-        flex-direction: row-reverse;
-        font-size: 3.5em;
-        justify-content: space-around;
-        padding: 0 .2em;
-        text-align: center;
-        width: 5em;
-    }
-
-    .star-rating input {
-        display: none;
-    }
-
-    .star-rating label {
-        color: #ccc;
-        cursor: pointer;
-    }
-
-    .star-rating :checked~label {
-        color: #f90;
-    }
-
-    .star-rating label:hover,
-    .star-rating label:hover~label {
-        color: #fc0;
-    }
-
-    .star-ratings {
-        unicode-bidi: bidi-override;
-        color: #ccc;
-        font-size: 64px;
-        position: relative;
-        margin: 0;
-        padding: 0;
-    }
-
-    .fill-ratings {
-        color: #e7711b;
-        padding: 0;
-        position: absolute;
-        z-index: 1;
-        display: block;
-        top: 0;
-        left: 0;
-        overflow: hidden;
-    }
-
-    // Allows us to grab the width of the span elements
-    span {
-        display: inline-block;
-    }
-
-    .empty-ratings {
-        padding: 0;
-        display: block;
-        z-index: 0;
-    }
-
-    .star-ratings>p {
-        font-size: 15px;
-    }
-</style>
