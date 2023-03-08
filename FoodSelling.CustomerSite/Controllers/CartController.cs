@@ -16,5 +16,21 @@ namespace FoodSelling.CustomerSite.Controllers
             HttpContext.Session.SetString("CountCart", _cartService.CountItem().ToString());
             return new JsonResult(new { CountItem = HttpContext.Session.GetString("CountCart") });
         }
+        public IActionResult IncreaseItemInCart(int id, int quantity)
+        {
+            var cart = _cartService.GetCart();
+            var item = cart.Find(p => p.Product.ProductId == id);
+            item.Quantity = quantity;
+            _cartService.SaveCartSession(cart);
+            HttpContext.Session.SetString("CountCart", _cartService.CountItem().ToString());
+            return new JsonResult(
+                new
+                {
+                    CountItem = HttpContext.Session.GetString("CountCart"),
+                    Total = item.Total,
+                    TotalToPay = cart.Sum(p => p.Total)
+                }
+            );
+        }
     }
 }

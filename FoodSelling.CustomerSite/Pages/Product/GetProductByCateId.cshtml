@@ -39,12 +39,48 @@
                         <div class="row card-bottom">
                         <p class="card-text text-center fs-5 col" style="color:#0C713D; margin: 4px 0px; font-weight: 700;">
                             @string.Format("{0:#,##0.##}₫", @item.Price)</p>
-                        <button class="col btn-addtocart-index" type="submit">Đặt ngay</button>
+                        <button class="col btn-addtocart-index ajax-btn-addtocart" data-id="@item.ProductId" type="submit">Đặt ngay</button>
                         </div>
                     </div>
                 </div>
             }
         </div>
     </div>
-
  </div>
+
+ @section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script asp-append-version="true">
+        $(document).ready(function(){
+            $(".ajax-btn-addtocart").click(function(){
+                $.ajax({
+                    url: "/Cart/AddToCartUsingAjax",
+                    type: 'POST',
+                    data: {
+                        id: $(this).data("id"),
+                    },
+                    success: function(data){
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thêm vào giỏ hàng thành công',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                        var countItem = JSON.parse(data.countItem);
+                        $(".count-total-cart").html(parseInt(countItem, Number));
+                    },
+                    error: function(data){
+                        console.log(data);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Vui lòng thử lại',
+                            showConfirmButton: false,
+                            timer: 1500
+                            })
+                    },
+                });
+            });
+        });
+    </script>
+}

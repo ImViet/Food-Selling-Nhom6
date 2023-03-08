@@ -41,8 +41,8 @@
                   </div>
                 </td>
                 <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Product.Price)</td>
-                <td class="align-middle p-4"><input type="text" class="form-control text-center" value="@item.Quantity"></td>
-                <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Total)</td>
+                <td class="align-middle p-4"><input id="item-quantity" data-id="@item.Product.ProductId" type="number" class="form-control text-center" min="1" value="@item.Quantity"></td>
+                <td class="text-right font-weight-semibold align-middle p-4"><span class="total-item">@string.Format("{0:#,##0.##}₫", @item.Total)</span></td>
                 <td class="text-center align-middle px-0"><a asp-page="ShoppingCart" asp-page-handler="RemoveItem" asp-route-id="@item.Product.ProductId" class="shop-tooltip close float-none text-danger"
                   title="" data-original-title="Remove">X</a></td>
               </tr>
@@ -57,7 +57,7 @@
         <div class="d-flex">
           <div class="text-right mt-4 ">
             <label class="text-muted font-weight-normal m-0">Tổng tiền</label>
-            <div class="text-large"><strong>@string.Format("{0:#,##0.##}₫", @total)</strong></div>
+            <div class="text-large"><span class="total-pay">@string.Format("{0:#,##0.##}₫", @total)</span></div>
           </div>
         </div>
       </div>
@@ -70,3 +70,28 @@
     </div>
   </div>
 </div>
+
+@section scripts{
+  <script asp-append-version="true">
+   $(document).ready(function (){
+     $("#item-quantity").change(function (){
+        $.ajax({
+          url: "/Cart/IncreaseItemInCart",
+          type: 'POST',
+          data: {
+              id: $(this).data("id"),
+              quantity: $("#item-quantity").val(),
+          },
+          success: function(data) {
+            console.log(data);
+            $(".total-item").html(parseInt(data.total, Number));
+            $(".total-pay").html(parseInt(data.totaltopay, Number));
+          },
+          error:{
+          }
+        });
+      });
+   }
+    ); 
+  </script>
+}
