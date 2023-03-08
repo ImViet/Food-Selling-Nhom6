@@ -41,7 +41,7 @@
                   </div>
                 </td>
                 <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Product.Price)</td>
-                <td class="align-middle p-4"><input type="text" class="form-control text-center" value="@item.Quantity"></td>
+                <td class="align-middle p-4"><input type="number" class="form-control text-center" min="1" value="@item.Quantity"></td>
                 <td class="text-right font-weight-semibold align-middle p-4">@string.Format("{0:#,##0.##}₫", @item.Total)</td>
                 <td class="text-center align-middle px-0"><a asp-page="ShoppingCart" asp-page-handler="RemoveItem" asp-route-id="@item.Product.ProductId" class="shop-tooltip close float-none text-danger"
                   title="" data-original-title="Remove">X</a></td>
