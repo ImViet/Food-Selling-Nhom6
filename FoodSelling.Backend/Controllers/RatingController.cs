@@ -1,5 +1,6 @@
 ﻿using FoodSelling.Backend.Interfaces;
 using FoodSelling.DTO.Dtos.RatingDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,12 @@ namespace FoodSelling.Backend.Controllers
         public async Task<List<RatingDto>> GetProductRatings(int id)
         {
             return await _ratingRepository.GetProductRatings(id);
+        }
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost]
+        public async Task<RatingDto> CreateRating(CreateRatingDto newRating)
+        {
+            return await _ratingRepository.CreateRating(newRating);
         }
     }
 }

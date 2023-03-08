@@ -4,7 +4,6 @@
 @using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
-    var product = ViewData["product"] as ProductDto;
     var ratingAvgtemp = Convert.ToDouble(ViewData["ratingAvg"]);
     var ratingAvg = string.Format("{0:0.##}%", (Convert.ToDouble(ViewData["ratingAvg"]) / 5) * 100);
     var listRatings = ViewData["listRatings"] as List<RatingDto>;
@@ -18,31 +17,25 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a asp-page="/Index">Trang chủ</a></li>
                 <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
-                @if (product != null)
-                {
-                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@product.CategoryId">@product.CategoryName</a></li>
-                }
-                else
-                {
-                    <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@product.CategoryId">@product.CategoryName</a></li>
-                }
+                <li class="breadcrumb-item"><a asp-page="/Product/GetProductByCateId" asp-route-cateid="@Model.product.CategoryId">@Model.product.CategoryName</a></li>
             </ol>
         </nav>
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6">
-                <img class="card-img-top mb-5 mb-md-0" src="~/img/@product.Image" alt="..." asp-append-version="true" style="max-width: 80%"/>
+                <img class="card-img-top mb-5 mb-md-0" src="~/img/@Model.product.Image" alt="..." asp-append-version="true" style="max-width: 80%"/>
             </div>
             <div class="col-md-6">
                 @* <div class="small mb-1 pb-3" style="display: inline-block ;">Loại sản phẩm:
                     @Model.product.CategoryName
                     </div> *@
-                <h1 class="display-6 fw-bolder">@product.ProductName</h1>
+                    <h1 class="display-6 fw-bolder">@Model.product.ProductName</h1>
                 @* <div class="small mb-1" style="display: inline-block ;">Xuất xứ: @product.Origin</div> *@
-                <div class="small mb-1" style="display: inline-block ; float:right;">Đơn vị tính: @product.Unit
+                    <div class="small mb-1" style="display: inline-block ; float:right;">
+                        Đơn vị tính: @Model.product.Unit
                 </div>
                 <div class="fs-5 mb-1">
                     Giá:
-                    <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", product.Price)</span>
+                        <span style="color:#e68b24"> @string.Format("{0:#,##0.##}₫", Model.product.Price)</span>
                 </div>
                 <div class="star-ratings" style="display: inline-block; font-size: 18px">
                     <div class="fill-ratings" id="star-avg" style="width: @ratingAvg;">
@@ -54,11 +47,11 @@
                 </div>
                 <hr>
                 <pre class="commit" style="white-space: pre-line;">
-        @product.Description
+                        @Model.product.Description
                         </pre>
                 <div class="">
                     <a class="btn-addtocart" asp-page="/Cart/ShoppingCart" asp-page-handler="AddToCart"
-                        asp-route-id="@product.ProductId">
+                           asp-route-id="@Model.product.ProductId">
                         <div class="glyphicon glyphicon-shopping-cart"></div>
                         Thêm vào giỏ hàng
                     </a>
@@ -107,7 +100,8 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h5 class="modal-title" id="exampleModalLabel">Đánh giá:
-                                                @product.ProductName</h5>
+                                                    @Model.product.ProductName
+                                                </h5>
                                         </div>
                                         <div class="modal-body">
                                             <form asp-page="/Product/GetProductDetail" asp-page-handler="CreateRating"
@@ -133,7 +127,7 @@
                                                     <label for="productid" name="Star" class="col-form-label">Số
                                                         sao:</label>
                                                     <input type="text" class="form-control" name="ProductId"
-                                                        value="@product.ProductId" id="productid">
+                                                               value="@Model.product.ProductId" id="productid">
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -159,15 +153,25 @@
                                     {
                                         <div class="row" style="min-height: 100px; margin-bottom: 15px;">
                                             <div>
+                                                <div class="rating-top">
+                                                    <div class="info-user">
+                                                        <img src="~/img/user.png" />
+                                                        <p>@rating.UserName</p>
+                                                    </div>
+                                                    <p class="rating-time">@rating.CreatedDate</p>
+                                                </div>
+                                                
                                                 @{
-                                                    var i = 0;
-                                                    while (i < rating.Star)
-                                                    {
-                                                        <i style="color: #FDD836;" class="fas fa-star"></i>
-                                                        i++;
-                                                    }
+                                                    var star = string.Format("{0:0.##}%", (Convert.ToDouble(@rating.Star)/ 5) * 100);
                                                 }
-                                                <p>@rating.CreatedDate</p>
+                                                <div class="star-ratings" style="display: inline-block; font-size: 18px">
+                                                    <div class="fill-ratings" id="star-avg" style="width: @star;">
+                                                        <span>★★★★★</span>
+                                                    </div>
+                                                    <div class="empty-ratings">
+                                                        <span>★★★★★</span>
+                                                    </div>
+                                                </div>
                                                 <p>@rating.Comment</p>
                                             </div>
                                         </div>

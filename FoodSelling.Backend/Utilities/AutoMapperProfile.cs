@@ -19,6 +19,7 @@ namespace FoodSelling.Backend.Utilities
         private void FromPresentationLayer()
         {
             CreateMap<RegisterDto, User>();
+            CreateMap<CreateRatingDto, Rating>();
         }
 
         private void FromDataAccessorLayer()
