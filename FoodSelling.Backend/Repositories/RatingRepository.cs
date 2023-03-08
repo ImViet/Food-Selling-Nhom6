@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodSelling.Backend.Repositories
 {
-    public class RatingRepository: IRatingRepository
+    public class RatingRepository : IRatingRepository
     {
         private readonly FoodSellingDbContext _context;
         private readonly IMapper _mapper;
@@ -22,17 +22,18 @@ namespace FoodSelling.Backend.Repositories
             var listRatingDTO = _mapper.Map<List<RatingDto>>(rating);
             return listRatingDTO;
         }
-        //public async Task<RatingDto> CreateRating(AddRatingDTO newRating)
-        //{
-        //    var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == newRating.ProductId);
-        //    Rating rating = new Rating();
-        //    if (product != null)
-        //    {
-        //        rating = _mapper.Map<Rating>(newRating);
-        //        _context.Ratings.Add(rating);
-        //    }
-        //    await _context.SaveChangesAsync();
-        //    return _mapper.Map<RatingDTO>(rating);
-        //}
+        public async Task<RatingDto> CreateRating(CreateRatingDto newRating)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.ProductId == newRating.ProductId);
+            Rating rating = new Rating();
+            if (product != null)
+            {
+                rating = _mapper.Map<Rating>(newRating);
+                rating.CreatedDate = DateTime.Now;
+                _context.Ratings.Add(rating);
+            }
+            await _context.SaveChangesAsync();
+            return _mapper.Map<RatingDto>(rating);
+        }
     }
 }

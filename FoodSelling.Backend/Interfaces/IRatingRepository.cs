@@ -6,5 +6,6 @@ namespace FoodSelling.Backend.Interfaces
     {
         //Task<RatingDto> CreateRating(AddRatingDTO rating);
         Task<List<RatingDto>> GetProductRatings(int id);
+        Task<RatingDto> CreateRating(CreateRatingDto newRating);
     }
 }

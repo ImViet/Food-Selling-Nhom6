@@ -3,15 +3,20 @@ using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using FoodSelling.DTO.Dtos.RatingDtos;
 using FoodSelling.CustomerSite.Interfaces;
 using FoodSelling.CustomerSite.Extensions;
+using Newtonsoft.Json;
+using System.Text;
+using System.Net.Http.Headers;
 
 namespace FoodSelling.CustomerSite.Services
 {
     public class ProductService : IProduct
     {
         private readonly IHttpClientFactory _clientFactory;
-        public ProductService(IHttpClientFactory clientFactory)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public ProductService(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
         {
             _clientFactory = clientFactory;
+            _httpContextAccessor = httpContextAccessor;
         }
         public async Task<PagingDto<ProductDto>> GetAll(string sortOrder, int pageNumber)
         {
@@ -52,9 +57,18 @@ namespace FoodSelling.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<PagingDto<ProductDto>>(url);
             return data;
         }
-        public Task<RatingDto> CreateRating(CreateRatingDto newRating)
+        public async Task<RatingDto> CreateRating(CreateRatingDto newRating)
         {
-            throw new NotImplementedException();
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = "/rating/createrating";
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("JWTToken");
+            var jsonString = JsonConvert.SerializeObject(newRating);
+            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await httpClient.PostAsync(url, content);
+            var jsonData = response.Content.ReadAsStringAsync().Result;
+            var data = JsonConvert.DeserializeObject<RatingDto>(jsonData);
+            return data;
         }
     }
 }
