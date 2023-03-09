@@ -5,6 +5,7 @@ using FoodSelling.Backend.Data;
 using FoodSelling.Backend.Entities;
 using FoodSelling.Backend.Interfaces;
 using FoodSelling.DTO.Dtos;
+using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
 using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using Microsoft.EntityFrameworkCore;
 
@@ -145,6 +146,40 @@ namespace FoodSelling.Backend.Repositories
                 str2 = str2.Remove(str2.IndexOf("?"), 1);
             }
             return str2;
+        }
+
+        public async Task<ProductDto> CreateProduct(CreateProductDto newProduct)
+        {
+            var product = _mapper.Map<Product>(newProduct);
+            await _context.Products.AddAsync(product);
+            await _context.SaveChangesAsync();
+            var result = _mapper.Map<ProductDto>(product);
+
+            return result;
+        }
+
+        public async Task<bool> DeleteProduct(int productId)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.ProductId == productId);
+            if (product != null)
+            {
+                _context.Products.Remove(product);
+                return Convert.ToBoolean(await _context.SaveChangesAsync());
+            }
+            return false;
+        }
+
+        public async Task<ProductDto> UpdateProduct(EditProductDto newProduct)
+        {
+            var product = _context.Products.FirstOrDefault(x => x.ProductId == newProduct.ProductId);
+            if (product != null)
+            {
+                _context.Products.Update(product);
+                _mapper.Map(newProduct, product);
+                await _context.SaveChangesAsync();
+            }
+            var result = _mapper.Map<ProductDto>(product);
+            return result;
         }
     }
 }

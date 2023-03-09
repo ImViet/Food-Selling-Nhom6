@@ -3,6 +3,9 @@ using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FoodSelling.Backend.Interfaces;
+using FoodSelling.Backend.Repositories;
+using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
+
 namespace FoodSelling.Backend.Controllers
 {
     [Route("[controller]/[action]")]
@@ -39,6 +42,24 @@ namespace FoodSelling.Backend.Controllers
         public async Task<double> RatingAVG(int id)
         {
             return await _productRepository.RatingAVG(id);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<ProductDto>> CreateProduct([FromBody] CreateProductDto newProduct)
+        {
+            return await _productRepository.CreateProduct(newProduct);
+        }
+
+        [HttpDelete("{productId}")]
+        public async Task<ActionResult<bool>> DeleteCategory(int productId)
+        {
+            return await _productRepository.DeleteProduct(productId);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<ProductDto>> UpdateProduct([FromBody] EditProductDto newProduct)
+        {
+            return await _productRepository.UpdateProduct(newProduct);
         }
     }
 }
