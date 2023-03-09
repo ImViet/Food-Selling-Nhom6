@@ -10,6 +10,8 @@ namespace FoodSelling.Backend.Interfaces
         Task<PagingDto<ProductDto>> GetProductByCateId(string cateId, string sortOrder, int pageNumber, int pageSize);
         Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber, int pageSize);
         Task<double> RatingAVG(int id);
-
+        Task<ProductDto> CreateProduct(CreateProductDto newProduct);
+        Task<bool> DeleteProduct(int productId);
+        Task<ProductDto> UpdateProduct(EditProductDto newProduct);
     }
 }

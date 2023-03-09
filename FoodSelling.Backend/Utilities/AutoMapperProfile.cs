@@ -22,6 +22,8 @@ namespace FoodSelling.Backend.Utilities
             CreateMap<CreateRatingDto, Rating>();
             CreateMap<CreateCategoryDto, Category>();
             CreateMap<EditCategoryDto, Category>();
+            CreateMap<CreateProductDto, Product>();
+            CreateMap<EditProductDto, Product>();
         }
 
         private void FromDataAccessorLayer()
