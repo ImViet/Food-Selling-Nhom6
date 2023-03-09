@@ -1,5 +1,6 @@
 ﻿using FoodSelling.Backend.Interfaces;
 using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,24 @@ namespace FoodSelling.Backend.Controllers
         public async Task<ActionResult<List<CategoryDto>>> GetAllCategory()
         {
             return await _categoryRepository.GetAllCategory();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<CategoryDto>> CreateCategory([FromBody] CreateCategoryDto newCategory)
+        {
+            return await _categoryRepository.CreateCategory(newCategory);
+        }
+
+        [HttpDelete("{categoryId}")]
+        public async Task<ActionResult<bool>> DeleteCategory (string categoryId)
+        {
+            return await _categoryRepository.DeleteCategory(categoryId);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<CategoryDto>> UpdateCategory([FromBody] EditCategoryDto newCategory)
+        {
+            return await _categoryRepository.UpdateCategory(newCategory);
         }
     }
 }
