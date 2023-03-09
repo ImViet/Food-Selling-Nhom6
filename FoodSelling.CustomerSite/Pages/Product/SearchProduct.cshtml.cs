@@ -34,7 +34,7 @@ namespace FoodSelling.CustomerSite.Pages.Product
             var searchString = Request.Query["searchString"];
             var data = await _productService.SearchProducts(searchString, sortOrder, pageCurrent);
             ViewData["totalPages"] = data.TotalPages;
-            ViewData["searchString"] = searchString;
+            ViewData["searchString"] = searchString.ToString();
             ViewData["products"] = data.Items;
             return Page();
         }
