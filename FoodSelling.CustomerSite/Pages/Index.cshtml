@@ -2,25 +2,74 @@
 @using FoodSelling.CustomerSite.Pages
 @model IndexModel
 @{
-    <div class="img-intro">
-        <img src="~/img/banner3.png" alt="" asp-append-version="true">
+   <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="margin-top: -22px;">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="~/img/banner3.png" class="d-block w-100" alt="...">
     </div>
+    <div class="carousel-item">
+      <img src="~/img/banner1.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="~/img/banner2.png" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+    @* <div class="img-intro">
+        <img src="~/img/banner3.png" alt="" asp-append-version="true">
+    </div> *@
     <section class="introduce">
         <div class="container">
             <div class="row mockup">
                 <div class="col img-mockup">
                     <img src="~/img/Mockup3.png" alt="">
                 </div>
-                <div class="col">
-                    Content
+                <div class="col introduce-item">
+                  <h3 class="title">ẤP Ủ ĐAM MÊ ITEA TẠO NÊN THƯƠNG HIỆU</h3>
+                  <p class="content">
+                    ITea ấp ủ đam mê từ những năm 2003, bắt đầu từ tình yêu lá trà cùng những ly nước trái cây nguyên chất, chúng mình đã tạo nên thương hiệu độc quyền về chất lượng sản phẩm.
+Ngay từ những ngày đầu thành lập, chúng mình rất khó khăn trong việc huy động vốn cùng những sản phẩm của ITea. 
+Ngày hôm nay, ITea đã phát triển và luôn mong muốn mang đến cho các bạn sản phẩm tuyệt vời nhất từ những lá trà nguyên chất tạo nên vị ngon đặc trưng riêng về ITea.
+Trong tương lai, chúng mình cùng nhau xây dựng thương hiệu đặc trưng theo cách riêng của ITea. ITea không ngừng phát triển và cải tiến, một không gian mở cùng mọi người chia sẻ và nhau kết nối. ITea luôn bên bạn và sát cánh cùng bạn.
+                  </p>
                 </div>
             </div>
             <div class="row mockup">
-                <div class="col">
-                    Content
+                <div class="col introduce-item">
+                  <h3 class="title">
+                    DỊCH VỤ
+                  </h3>
+                  <p class="content">
+ITea mang đến khách hàng dịch vụ đặc trưng về chất lượng và không gian thoải mái chia sẻ cùng nhau. Vì vậy, đừng ngần ngại mà hãy chia sẻ cho chúng mình để cùng nhau giúp ITea trở nên độc quyền nhé
+                  </p>
                 </div>
+                <div class="col img-mockup"  style="text-align: center; margin-left: 30px;">
+                    <img src="~/img/Mockup2.png" alt="">
+                </div>
+            </div>
+            <div class="row mockup">
                 <div class="col img-mockup">
-                    <img src="~/img/Mockup2.png" alt="" style="text-align: center;">
+                    <img src="~/img/Mockup4.png" alt="">
+                </div>
+                <div class="col introduce-item">
+                  <h3 class="title">CƠ HỘI PHÁT TRIỂN</h3>
+                  <p class="content">
+                    Là nơi phát triển của chúng ta, ITea luôn mong muốn cùng tất cả mọi người tạo nên một thương hiệu độc quyền nhất.<br/> Chúng mình luôn tin tưởng trao quyền cho bạn, hỗ trợ bạn trong suốt quá trình làm việc
+Chúng mình biết con đường thành công không hề dễ, tuy nhiên chúng mình luôn tạo cơ hội để cùng nhau sáng tạo, tạo kiện tốt nhất để bạn nâng cấp kỹ năng vốn có của bạn. Tại ITea chúng mình, bạn sẽ được làm việc với những đồng nghiệp tuyệt vời, tận hưởng không gian cùng nhau và giúp nhau phát triển để trở thành phiên bản tốt nhất của bản thân.
+                  </p>
                 </div>
             </div>
         </div>

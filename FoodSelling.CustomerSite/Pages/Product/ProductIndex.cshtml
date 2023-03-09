@@ -6,9 +6,8 @@
     int totalPages = (int)ViewData["totalPages"];
     string sort = (string)ViewData["sort"];
     var products = ViewData["products"] as List<ProductDto>;
-    var tempPageCurrent = 1;
 }
-<div style="background-image: url(https://phuclong.com.vn/images/background/bg_tealeaf.svg); background-repeat: no-repeat">
+<div style="background-image: url(https://phuclong.com.vn/images/background/bg_tealeaf.svg); background-repeat: repeat">
 <div class="container">
     <div class="row">
            <nav>
@@ -17,40 +16,44 @@
                 <li class="breadcrumb-item active">Tất cả sản phẩm</li>
             </ol>
         </nav>
+         <div class="intro-cate">
+                <h2>Tất cả sản phẩm</h2>
+                <img src="~/img/icon_tealeaves.png" />
+            </div>
          <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
             @switch (sort)
             {
-                case "price":
-                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                                Sắp xếp: Giá tăng dần
-                                            </button>
+            case "price":
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                            Sắp xếp: Giá tăng dần
+                        </button>
+                break;
+            case "price_desc":
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                            Sắp xếp: Giá giảm dần
+                        </button>
+                break;
+            case "name":
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                            Sắp xếp: Tên a-z
+                        </button>
+                break;
+            case "name_desc":
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                            Sắp xếp: Tên z-a
+                        </button>
+                break;
+            default:
+                        <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                            Sắp xếp
+                        </button>
                     break;
-                case "price_desc":
-                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                                Sắp xếp: Giá giảm dần
-                                            </button>
-                    break;
-                case "name":
-                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                                Sắp xếp: Tên a-z
-                                            </button>
-                    break;
-                case "name_desc":
-                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                                Sắp xếp: Tên z-a
-                                            </button>
-                    break;
-                default:
-                                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                                Sắp xếp
-                                            </button>
-                    break;
-            }
+}
             <ul class="dropdown-menu">
                 <li>
                     <a a class="dropdown-item" asp-page="/Product/ProductIndex" asp-route-sortorder="price"
