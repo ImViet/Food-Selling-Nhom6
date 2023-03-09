@@ -89,3 +89,30 @@ input.error {
   text-decoration: none;
   color: #0c6363;
 }
+
+.carousel-item {
+  transition: 1.9s ease-in-out;
+}
+
+.intro-cate {
+  text-align: center;
+}
+
+.intro-cate h2 {
+  text-transform: uppercase;
+  color: #0c713d;
+  font-family: emoji;
+  letter-spacing: 5px;
+}
+
+.introduce-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.introduce-item .title{
+  color: #0c713d;
+  margin-bottom: 40px;
+}

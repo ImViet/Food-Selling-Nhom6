@@ -34,6 +34,8 @@ namespace FoodSelling.CustomerSite.Pages.Product
             var data = await _productService.GetProductByCateId(cateId, sortOrder, pageCurrent);
             ViewData["totalPages"] = data.TotalPages;
             ViewData["products"] = data.Items;
+            var cate = await _categoryService.GetDetailCategory(cateId);
+            ViewData["category"] = cate;
             ViewData["cateId"] = cateId;
             return Page();
         }

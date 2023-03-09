@@ -59,5 +59,16 @@ namespace FoodSelling.Backend.Repositories
             var result = _mapper.Map<CategoryDto>(category);
             return result;
         }
+
+        public async Task<CategoryDto> GetDetailCategory(string categoryId)
+        {
+            var category = _context.Categories.Find(categoryId);
+            if(category == null)
+            {
+                return null;
+            }
+            var result = _mapper.Map<CategoryDto>(category);
+            return result;
+        }
     }
 }

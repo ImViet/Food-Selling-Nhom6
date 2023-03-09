@@ -18,5 +18,12 @@ namespace FoodSelling.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<List<CategoryDto>>(url);
             return data;
         }
+        public async Task<CategoryDto> GetDetailCategory(string categoryId)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = $"/category/getdetailcategory?categoryid={categoryId}";
+            var data = httpClient.GetDataFromAPIAsync<CategoryDto>(url);
+            return data;
+        }
     }
 }

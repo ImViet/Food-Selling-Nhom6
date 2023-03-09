@@ -23,6 +23,12 @@ namespace FoodSelling.Backend.Controllers
             return await _categoryRepository.GetAllCategory();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<CategoryDto>> GetDetailCategory(string categoryId)
+        {
+            return await _categoryRepository.GetDetailCategory(categoryId);
+        }
+
         [HttpPost]
         public async Task<ActionResult<CategoryDto>> CreateCategory([FromBody] CreateCategoryDto newCategory)
         {

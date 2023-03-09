@@ -1,14 +1,16 @@
 ﻿@page
 @using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos
+@using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos
 @model FoodSelling.CustomerSite.Pages.Product.GetProductByCateIdModel
 @{
     var pageCurrent = (int)ViewData["page"];
     int totalPages = (int)ViewData["totalPages"];
     string cateId = (string)ViewData["cateId"];
     string sort = (string)ViewData["sort"];
+    var category = ViewData["category"] as CategoryDto;
     var products = ViewData["products"] as List<ProductDto>;
 }
-<div style="background-image: url(https://phuclong.com.vn/images/background/bg_tealeaf.svg); background-repeat: no-repeat">
+<div style="background-image: url(https://phuclong.com.vn/images/background/bg_tealeaf.svg); background-repeat: repeat">
  <div class="container">
     <div class="row">
            <nav>
@@ -17,38 +19,42 @@
                 <li class="breadcrumb-item"><a asp-page="/Product/ProductIndex">Tất cả sản phẩm</a></li>
             </ol>
             </nav>
+            <div class="intro-cate">
+                <h2>@category.CategoryName</h2>
+                <img src="~/img/icon_tealeaves.png" />
+            </div>
              <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
                 @switch (sort)
                 {
                     case "price":
-                                                                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                        Sắp xếp: Giá tăng dần
-                                                                    </button>
+                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                                Sắp xếp: Giá tăng dần
+                            </button>
                         break;
                     case "price_desc":
-                                                                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                        Sắp xếp: Giá giảm dần
-                                                                    </button>
+                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                                Sắp xếp: Giá giảm dần
+                            </button>
                         break;
                     case "name":
-                                                                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                        Sắp xếp: Tên a-z
-                                                                    </button>
+                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                                Sắp xếp: Tên a-z
+                            </button>
                         break;
                     case "name_desc":
-                                                                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                        Sắp xếp: Tên z-a
-                                                                    </button>
+                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                                Sắp xếp: Tên z-a
+                            </button>
                         break;
                     default:
-                                                                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
-                                                                aria-expanded="false">
-                                                                        Sắp xếp
-                                                                    </button>
+                            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                                Sắp xếp
+                            </button>
                         break;
                 }
             <ul class="dropdown-menu">
@@ -78,11 +84,11 @@
         <div class="d-flex flex-wrap">
             @foreach (var item in products)
             {
-                                        <div class="card-fix">
-                                            <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
-                                                <img title="@item.ProductName" src="~/img/@item.Image" class="card-img-top" alt="@item.ProductName" asp-append-version="true">
-                                            </a>
-                                            <div class="card-body">
+                <div class="card-fix">
+                    <a asp-page="/Product/GetProductDetail" asp-route-id="@item.ProductId">
+                        <img title="@item.ProductName" src="~/img/@item.Image" class="card-img-top" alt="@item.ProductName" asp-append-version="true">
+                    </a>
+                    <div class="card-body">
                         @{
                             var name = "";
                             if (item.ProductName.Length < 26)
@@ -94,15 +100,15 @@
                                 name = item.ProductName.Substring(0, 25) + "...";
                             }
                         }
-                                                <h5 class="card-title" style="font-size: 18px;">@name</h5>
-                                                <hr>
-                                                <div class="row card-bottom">
-                                                <p class="card-text text-center fs-5 col" style="color:#0C713D; margin: 4px 0px; font-weight: 700;">
-                                @string.Format("{0:#,##0.##}₫", @item.Price)</p>
-                                                <button class="col btn-addtocart-index ajax-btn-addtocart" data-id="@item.ProductId" type="submit">Đặt ngay</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <h5 class="card-title" style="font-size: 18px;">@name</h5>
+                            <hr>
+                            <div class="row card-bottom">
+                            <p class="card-text text-center fs-5 col" style="color:#0C713D; margin: 4px 0px; font-weight: 700;">
+                         @string.Format("{0:#,##0.##}₫", @item.Price)</p>
+                            <button class="col btn-addtocart-index ajax-btn-addtocart" data-id="@item.ProductId" type="submit">Đặt ngay</button>
+                            </div>
+                        </div>
+                    </div>
             }
         </div>
     </div>
@@ -112,130 +118,130 @@
     }
     else if (pageCurrent == 1)
     {
-        <nav aria-label="...">
-            <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                <span class="page-link">Trước</span>
-                </li>
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                        <span class="page-link">Trước</span>
+                        </li>
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     @if (i == pageCurrent)
                     {
-                                        <li class="page-item active"> 
-                                            <span class="page-link">
+                    <li class="page-item active"> 
+                        <span class="page-link">
                                 @i
-                                            <span class="sr-only">(current)</span>
-                                        </span></li>
+                        <span class="sr-only">(current)</span>
+                    </span></li>
                     }
                     else
                     {
-                                        <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
+                                                                <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
                     }
                 }  
-                <li class="page-item">
-                <a class="page-link" asp-page="/Product/ProductIndex"
+                        <li class="page-item">
+                        <a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent + 1)">Sau</a>
-                </li>
-            </ul>
-        </nav>
+                        </li>
+                    </ul>
+                </nav>
     }
     else if (pageCurrent == totalPages)
     {
-            <nav aria-label="...">
-            <ul class="pagination justify-content-end">
-                <li class="page-item">
-                     <a class="page-link" asp-page="/Product/ProductIndex"
+                    <nav aria-label="...">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item">
+                             <a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent - 1)">Trước</a>
-                </li>
+                        </li>
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     @if (i == pageCurrent)
                     {
-                                        <li class="page-item active"> 
-                                            <span class="page-link">
+                        <li class="page-item active"> 
+                            <span class="page-link">
                                 @i
-                                            <span class="sr-only">(current)</span>
-                                        </span></li>
+                        <span class="sr-only">(current)</span>
+                    </span></li>
                     }
                     else
                     {
-                                        <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
+                    <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
                     }
                 }  
-                <li class="page-item disabled">
-                <span class="page-link">Sau</span>
-                </li>
-            </ul>
-        </nav>
+                        <li class="page-item disabled">
+                        <span class="page-link">Sau</span>
+                        </li>
+                    </ul>
+                </nav>
     }
     else
     {
-            <nav aria-label="...">
-            <ul class="pagination justify-content-end">
-                <li class="page-item">
-                     <a class="page-link" asp-page="/Product/ProductIndex"
+                    <nav aria-label="...">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item">
+                             <a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent - 1)">Trước</a>
-                </li>
+                        </li>
                 @for (int i = 1; i <= totalPages; i++)
                 {
                     @if (i == pageCurrent)
                     {
-                                        <li class="page-item active"> 
-                                            <span class="page-link">
+                        <li class="page-item active"> 
+                            <span class="page-link">
                                 @i
-                                            <span class="sr-only">(current)</span>
-                                        </span></li>
+                        <span class="sr-only">(current)</span>
+                    </span></li>
                     }
                     else
                     {
-                                        <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
+                    <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
                     }
                 }  
-                <li class="page-item">
-                 <a class="page-link" asp-page="/Product/ProductIndex"
+                        <li class="page-item">
+                         <a class="page-link" asp-page="/Product/ProductIndex"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent + 1)">Sau</a>
-                </li>
-            </ul>
-        </nav>
+                        </li>
+                    </ul>
+                </nav>
     }
  </div>
 </div>
 @section scripts {
-                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                            <script asp-append-version="true">
-                                $(document).ready(function(){
-                                    $(".ajax-btn-addtocart").click(function(){
-                                        $.ajax({
-                                            url: "/Cart/AddToCartUsingAjax",
-                                            type: 'POST',
-                                            data: {
-                                                id: $(this).data("id"),
-                                            },
-                                            success: function(data){
-                                                console.log(data);
-                                                Swal.fire({
-                                                    icon: 'success',
-                                                    title: 'Thêm vào giỏ hàng thành công',
-                                                    showConfirmButton: false,
-                                                    timer: 1500
-                                                    })
-                                                var countItem = JSON.parse(data.countItem);
-                                                $(".count-total-cart").html(parseInt(countItem, Number));
-                                            },
-                                            error: function(data){
-                                                console.log(data);
-                                                Swal.fire({
-                                                    icon: 'error',
-                                                    title: 'Vui lòng thử lại',
-                                                    showConfirmButton: false,
-                                                    timer: 1500
-                                                    })
-                                            },
-                                        });
-                                    });
-                                });
-                            </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script asp-append-version="true">
+    $(document).ready(function(){
+    $(".ajax-btn-addtocart").click(function(){
+        $.ajax({
+            url: "/Cart/AddToCartUsingAjax",
+            type: 'POST',
+            data: {
+                id: $(this).data("id"),
+            },
+            success: function(data){
+                console.log(data);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thêm vào giỏ hàng thành công',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+                var countItem = JSON.parse(data.countItem);
+                $(".count-total-cart").html(parseInt(countItem, Number));
+            },
+            error: function(data){
+                console.log(data);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Vui lòng thử lại',
+                    showConfirmButton: false,
+                    timer: 1500
+                    })
+            },
+        });
+    });
+    });
+    </script>
 }

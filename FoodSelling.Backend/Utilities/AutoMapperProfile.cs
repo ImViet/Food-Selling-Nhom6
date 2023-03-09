@@ -20,6 +20,8 @@ namespace FoodSelling.Backend.Utilities
         {
             CreateMap<RegisterDto, User>();
             CreateMap<CreateRatingDto, Rating>();
+            CreateMap<CreateCategoryDto, Category>();
+            CreateMap<EditCategoryDto, Category>();
         }
 
         private void FromDataAccessorLayer()
@@ -32,8 +34,6 @@ namespace FoodSelling.Backend.Utilities
                 .ForMember(d => d.CategoryName, t => t.MapFrom(src => src.Category.CategoryName))
                 .ForMember(d => d.Ratings, t => t.MapFrom(src => src.Ratings));
             CreateMap<Rating, RatingDto>();
-            CreateMap<CreateCategoryDto, Category>();
-            CreateMap<EditCategoryDto, Category>();
         }
     }
 }

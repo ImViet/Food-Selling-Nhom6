@@ -5,5 +5,6 @@ namespace FoodSelling.CustomerSite.Interfaces
     public interface ICategory
     {
         Task<List<CategoryDto>> GetAll();
+        Task<CategoryDto> GetDetailCategory(string categoryId);
     }
 }
