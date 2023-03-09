@@ -116,3 +116,25 @@ input.error {
   color: #0c713d;
   margin-bottom: 40px;
 }
+
+.about-logo {
+  display: flex;
+  justify-content: center;
+}
+.about-logo > img{
+  text-align: center;
+  max-width: 150px;
+}
+
+.about-title, .vision-title, .mission-title{
+  color: #0c713d;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.bg-about{
+  background-image: url(https://phuclong.com.vn/images/background/bg_team.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: 600px;
+}
