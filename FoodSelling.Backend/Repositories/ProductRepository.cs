@@ -5,7 +5,6 @@ using FoodSelling.Backend.Data;
 using FoodSelling.Backend.Entities;
 using FoodSelling.Backend.Interfaces;
 using FoodSelling.DTO.Dtos;
-using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
 using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using Microsoft.EntityFrameworkCore;
 

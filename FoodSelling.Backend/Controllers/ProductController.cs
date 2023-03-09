@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FoodSelling.Backend.Interfaces;
 using FoodSelling.Backend.Repositories;
-using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
 
 namespace FoodSelling.Backend.Controllers
 {
@@ -51,7 +50,7 @@ namespace FoodSelling.Backend.Controllers
         }
 
         [HttpDelete("{productId}")]
-        public async Task<ActionResult<bool>> DeleteCategory(int productId)
+        public async Task<ActionResult<bool>> DeleteProduct(int productId)
         {
             return await _productRepository.DeleteProduct(productId);
         }
