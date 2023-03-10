@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 //Config HttpClient
 builder.Services.AddHttpClient("myclient", client =>
@@ -21,6 +21,13 @@ builder.Services.AddSession(options =>
 });
 
 //Injection
+
+//Razor page
+builder.Services.AddRazorPages()
+    .AddRazorPagesOptions(options =>
+    {
+        options.Conventions.AddPageRoute("/Home/Index", "");
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,6 +43,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();
+app.UseEndpoints(endpoints =>
+{
+    // Thêm endpoint chuyển đến các trang Razor Page
+    // trong thư mục Pages
+    endpoints.MapRazorPages();
+});
 app.UseAuthorization();
 
 app.MapControllerRoute(
