@@ -20,11 +20,13 @@ namespace FoodSelling.CustomerSite.Pages.Auth
             var account = await _authService.LoginAsync(userLogin);
             if (account == null)
             {
-                return Redirect("/Auth/Login");
+                ViewData["messageChecked"] = "Tài khoản hoặc mật khẩu không đúng";
+                return Page();
             }
             string token = account.Token;
             HttpContext.Session.SetString("JWTToken", token);
             HttpContext.Session.SetString("UserName", account.UserName);
+            ViewData["messageChecked"] = "abc";
             return Redirect("/Index");
         }
 

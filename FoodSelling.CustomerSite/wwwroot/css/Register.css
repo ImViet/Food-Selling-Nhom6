@@ -84,3 +84,7 @@
 .register-form a {
   color: #4aba70;
 }
+
+.register-form .form-group input{
+  border-radius: 10px;
+}

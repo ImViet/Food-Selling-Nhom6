@@ -14,7 +14,16 @@ namespace FoodSelling.Backend.Controllers
         {
             _authRepository = authRepository;
         }
-
+        [HttpPost]
+        public async Task<ActionResult<bool>> CheckUserAvailable([FromBody]string userName)
+        {
+            var result = await _authRepository.CheckUserAvalable(userName);
+            if(result == false)
+            {
+                return false;
+            }
+            return true;
+        }
         [HttpPost]
         public async Task<ActionResult<AccountDto>> LoginAsync(LoginDto userLogin)
         {

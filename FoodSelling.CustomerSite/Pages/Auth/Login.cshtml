@@ -2,6 +2,7 @@
 @model FoodSelling.CustomerSite.Pages.Auth.Login
 @{
     ViewData["Title"] = "Đăng nhập";
+    var message = ViewData["messageChecked"];
 }
 @{
     <div class="container">
@@ -11,6 +12,17 @@
                         <img src="~/img/Logo2.png" alt="">
                     </div>
                     <h4 class="modal-title">Đăng nhập</h4>
+                    @{
+                        if(message != "")
+                        {
+                            <div class="message-error">
+                                <span>@message</span>
+                            </div>
+                        }
+                        else{
+
+                        }
+                    }
                     <div class="form-group">
                         <input id="userName" name="UserName" type="text" class="form-control" placeholder="Tài khoản">
                     </div>
