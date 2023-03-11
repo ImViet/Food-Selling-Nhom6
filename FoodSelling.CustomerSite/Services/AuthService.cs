@@ -12,6 +12,19 @@ namespace FoodSelling.CustomerSite.Services
         {
             _clientFactory = clientFactory;
         }
+
+        public async Task<bool> CheckUserAvailable(string userName)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = "/auth/checkuseravailable";
+            var jsonString = JsonConvert.SerializeObject(userName);
+            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, content);
+            var jsonData = response.Content.ReadAsStringAsync().Result;
+            var data = JsonConvert.DeserializeObject<bool>(jsonData);
+            return data;
+        }
+
         public async Task<AccountDto> LoginAsync(LoginDto userLogin)
         {
             var httpClient = _clientFactory.CreateClient("myclient");

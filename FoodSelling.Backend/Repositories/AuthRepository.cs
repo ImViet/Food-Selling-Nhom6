@@ -28,6 +28,16 @@ namespace RAShop.Backend.Repositories
             _mapper = mapper;
         }
 
+        public async Task<bool> CheckUserAvalable(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if(user == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public async Task<AccountDto> LoginAsync(LoginDto userLogin)
         {
             var user = await _userManager.FindByNameAsync(userLogin.UserName);
