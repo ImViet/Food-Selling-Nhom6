@@ -88,3 +88,15 @@
 .btn-submit-custom {
   background-color: #42ae68;
 }
+
+.login-form .form-group input{
+  border-radius: 10px;
+}
+
+.message-error{
+  display: flex;
+  justify-content: center;
+}
+.message-error > span{
+  color: red;
+}
