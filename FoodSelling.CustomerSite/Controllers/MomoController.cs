@@ -72,7 +72,8 @@ namespace FoodSelling.CustomerSite.Controllers
             string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
 
             JObject jmessage = JObject.Parse(responseFromMomo);
-
+            HttpContext.Session.Remove("Cart");
+            HttpContext.Session.Remove("CountCart");
             return Redirect(jmessage.GetValue("payUrl").ToString());
         }
 
