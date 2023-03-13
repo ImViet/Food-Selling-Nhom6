@@ -29,7 +29,7 @@ namespace FoodSelling.CustomerSite.Controllers
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
             string orderInfo = "test";
             string returnUrl = "https://localhost:7059/ConfirmPaymentClient";
-            string notifyurl = "https://ed64-14-186-135-88.ap.ngrok.io/Momo/SavePayment"; //lưu ý: notifyurl không được sử dụng localhost, có thể sử dụng ngrok để public localhost trong quá trình test
+            string notifyurl = "https://localhost:7059/Home/SavePayment"; 
 
             string amount = totalCash.ToString();
             string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
@@ -72,27 +72,29 @@ namespace FoodSelling.CustomerSite.Controllers
             string responseFromMomo = PaymentRequest.sendPaymentRequest(endpoint, message.ToString());
 
             JObject jmessage = JObject.Parse(responseFromMomo);
-            HttpContext.Session.Remove("Cart");
-            HttpContext.Session.Remove("CountCart");
             return Redirect(jmessage.GetValue("payUrl").ToString());
         }
 
 //Khi thanh toán xong ở cổng thanh toán Momo, Momo sẽ trả về một số thông tin, trong đó có errorCode để check thông tin thanh toán
 //errorCode = 0 : thanh toán thành công (Request.QueryString["errorCode"])
-//Tham khảo bảng mã lỗi tại: https://developers.momo.vn/#/docs/aio/?id=b%e1%ba%a3ng-m%c3%a3-l%e1%bb%97i
-        public ActionResult ConfirmPaymentClient(MomoResult result)
-        {
-            //lấy kết quả Momo trả về và hiển thị thông báo cho người dùng (có thể lấy dữ liệu ở đây cập nhật xuống db)
-            string rMessage  = result.message;
-            string rOrderId = result.orderId;
-            string rErrorCode = result.errorCode; // = 0: thanh toán thành công
-            return View();
-        }
-        [HttpPost]
-        public void SavePayment()
-        {
-            //cập nhật dữ liệu vào db
-            String a = "";
-        }
+        // public ActionResult ConfirmPaymentClient(MomoResult result)
+        // {
+        //     //lấy kết quả Momo trả về và hiển thị thông báo cho người dùng (có thể lấy dữ liệu ở đây cập nhật xuống db)
+        //     string rMessage  = result.message;
+        //     string rOrderId = result.orderId;
+        //     string rErrorCode = result.errorCode; // = 0: thanh toán thành công
+        //     if(rErrorCode == "0")
+        //     {
+        //         HttpContext.Session.Remove("Cart");
+        //         HttpContext.Session.Remove("CountCart");
+        //     }
+        //     return View();
+        // }
+        // [HttpPost]
+        // public void SavePayment()
+        // {
+        //     //cập nhật dữ liệu vào db
+        //     String a = "";
+        // }
     }
 }
