@@ -1,3 +1,6 @@
+.row {
+    margin: 5px 0;
+}
 .checkout-logo{
     width: 128px;
 }
@@ -10,8 +13,95 @@
     margin: 15px 0;
     border-radius: 5px;
     max-width: 365px;
+    padding: 10px;
 }
 
 .payment-by > img {
     width: 48px;
+}
+
+.side-bar-header {
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+.order {
+    width: 100%;
+}
+.order img{
+    width: 54px;
+}
+
+.product-image {
+    text-align: center;
+}
+
+.product-description{
+    display: flex;
+    flex-direction: column;
+}
+
+.product-unit {
+    font-size: 14px;
+    color: #969696;
+}
+
+.product-price {
+    text-align: right;
+    color: #969696;
+}
+tbody td {
+    font-size: 18px;
+}
+
+.main-checkout > hr {
+    font-size: 1px;
+}
+
+.temp-total > .row, .total-payment > .row{
+    display: flex;
+    flex-direction: row;
+}
+
+.temp-total > .row span, .total-payment > .row span{
+    display: inline;
+    padding: 0;
+}
+
+.lable-temp-total, .lable-delivery, .lable-total-cash{
+    width: 50%;
+}
+
+.temp-total-cash, .delivery-cash, .total-cash {
+    width: 50%;
+    text-align: right;
+}
+
+.lable-total-cash, .total-cash{
+    font-size: 20px;
+}
+
+.total-cash {
+    color: #c47135;
+}
+
+.sidebar-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.back-to-cart{
+    text-decoration: none;
+    color: black;
+    opacity: 0.8;
+}
+
+.back-to-cart:hover{
+    color: teal;
+    opacity: 1;
+}
+.btn-addtocart{
+    margin: 0;
 }
