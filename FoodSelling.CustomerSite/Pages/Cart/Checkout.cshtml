@@ -1,0 +1,44 @@
+@page
+<link rel="stylesheet" href="~/css/Checkout.css">
+<div class="container px-5">
+    <form action="" class="checkout">
+        <div class="row main-checkout d-flex flex-wrap flex-direction-row flex-row">
+            <div class="col-8 main-checkout-info">
+                <a href="">
+                    <img src="~/img/Logo3.png" alt="" class="checkout-logo">
+                </a>
+                <div class="row main-checkout-body">
+                    <div class="col-6">
+                        <h4>Thông tin nhận hàng</h4>
+                        <div class="col-md-12">
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="inputPassword4" placeholder="Họ và tên">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="inputAddress" placeholder="Số điện thoại">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" id="inputAddress2" placeholder="Địa chỉ">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" id="inputCity" placeholder="Ghi chú">
+                        </div>
+                    </div>
+                    <div class="col-6 payment-by">
+                        <h4>Phương thức thanh toán</h4>
+                        <input type="radio" id="paymentby" checked>
+                        <label for="paymentby">Thanh toán qua ví Momo</label>
+                        <img src="~/img/momo-logo.png" alt="">
+                        <h4 style="margin-top: 20px">Vận chuyển</h4>
+                        <span>Miễn phí</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 sidebar-checkout">
+                Sidebar
+            </div>
+        </div>     
+    </form>
+</div>

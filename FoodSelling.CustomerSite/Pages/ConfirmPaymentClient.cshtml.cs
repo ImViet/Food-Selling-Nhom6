@@ -15,7 +15,7 @@ namespace FoodSelling.CustomerSite.Pages
                 HttpContext.Session.Remove("Cart");
                 return Redirect("/Index");
             }
-                return Redirect("/Error");
+                return Redirect("/CancelPayment");
         }
     }
 }

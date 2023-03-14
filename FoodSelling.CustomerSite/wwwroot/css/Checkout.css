@@ -1,0 +1,17 @@
+.checkout-logo{
+    width: 128px;
+}
+
+.main-checkout-info {
+    border-right: 1px solid #ccc;
+}
+
+.main-checkout-body input {
+    margin: 15px 0;
+    border-radius: 5px;
+    max-width: 365px;
+}
+
+.payment-by > img {
+    width: 48px;
+}
