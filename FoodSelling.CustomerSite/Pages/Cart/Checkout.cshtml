@@ -1,0 +1,143 @@
+@page
+@model FoodSelling.CustomerSite.Pages.Cart.ShoppingCartModel
+@{
+  double total = 0;
+  int countItem = @Model.cart.Count();
+}
+<link rel="stylesheet" href="~/css/Checkout.css">
+<div class="container px-5">
+    <form method="post" class="checkout" id="checkout" asp-controller="Momo" asp-action="Payment">
+        <div class="row main-checkout d-flex flex-wrap flex-direction-row flex-row">
+            <div class="col-8 main-checkout-info">
+                <a href="">
+                    <img src="~/img/Logo3.png" alt="" class="checkout-logo">
+                </a>
+                <div class="row main-checkout-body">
+                    <div class="col-6">
+                        <h4>Thông tin nhận hàng</h4>
+                        <div class="col-md-12">
+                            <input type="email" class="form-control" name="email" placeholder="Email">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="name" placeholder="Họ và tên">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="numberphone" placeholder="Số điện thoại">
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" name="address" placeholder="Địa chỉ">
+                        </div>
+                        <div class="col-md-12">
+                            <input type="text" class="form-control" name="note" placeholder="Ghi chú">
+                        </div>
+                    </div>
+                    <div class="col-6 payment-by">
+                        <h4>Phương thức thanh toán</h4>
+                        <input type="radio" id="paymentby" checked>
+                        <label for="paymentby">Thanh toán qua ví Momo</label>
+                        <img src="~/img/momo-logo.png" alt="">
+                        <h4 style="margin-top: 20px">Vận chuyển</h4>
+                        <span>Miễn phí</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 sidebar-checkout">
+                <div class="side-bar-header">
+                    <h4>Đơn hàng (@countItem sản phẩm)</h4>
+                </div>
+                <div class="sidebar-body">
+                    <table class="order">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.cart)
+                            {
+                                total = total + @item.Total;
+                            <tr>
+                                <td class="product-image"><img src="~/img/@item.Product.Image" alt=""></td>
+                                <td class="product-description">
+                                    <span>@item.Product.ProductName</span>
+                                    <span class="product-unit">@item.Product.Unit</span>
+                                </td>
+                                <td class="product-quantity"><span>x</span>@item.Quantity</td>
+                                <td class="product-price">@string.Format("{0:#,##0.##}₫", @item.Product.Price)</td>
+                            </tr>                               
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <hr>
+                <div class="temp-total">
+                    <div class="row">
+                        <span class="lable-temp-total">Tạm tính</span>
+                        <span class="temp-total-cash">@string.Format("{0:#,##0.##}₫", @total)</span>
+                    </div>
+                    <div class="row">
+                        <span class="lable-delivery">Phí vận chuyển</span>
+                        <span class="delivery-cash"></span>
+                    </div>
+                </div>
+                <hr>
+                <div class="total-payment">
+                    <div class="row">
+                        <span class="lable-total-cash">Tổng</span>
+                        <span class="total-cash">@string.Format("{0:#,##0.##}₫", @total)</span>
+                    </div>
+                </div>
+                <div class="sidebar-footer">
+                    <a asp-page="/Cart/ShoppingCart" class="back-to-cart"><span><</span> Quay lại giỏ hàng</a>
+                    <input type="submit" id="btn-payment" class="btn-addtocart" value="Thanh toán"></input>
+                </div>
+            </div>
+        </div>     
+    </form>
+</div>
+
+@section scripts{
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script asp-append-version="true">
+    $(document).ready(function(){
+      $("#btn-payment").click(function(){
+        $.ajax({
+          url: "/Cart/CheckCart",
+          type: "POST",
+          success: function(data) {
+            console.log(data);
+            if(data.result == false)
+            {
+              Swal.fire('Giỏ hàng trống');
+            }
+            else
+            {
+              $.ajax({
+                    url: "/Session/CheckUserLogin",
+                    type: 'POST',
+                    success: function(data){
+                        console.log(data);
+                        if(data.result == false)
+                        {
+                            location.href="/Auth/Login"
+                        }
+                        @* else
+                        {
+                            location.href="/Momo/Payment"
+                        } *@
+                    }
+                });
+            }
+          },
+          error:function(){
+              Swal.fire('Lỗi');
+          }
+        });
+      });
+    });
+</script>
+<script src="~/js/checkoutvalidation.js" asp-append-version="true"></script>
+}

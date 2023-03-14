@@ -10,6 +10,14 @@ namespace FoodSelling.CustomerSite.Controllers
         {
             _cartService = cartService;
         }
+        public IActionResult CheckCart()
+        {
+            var cart = _cartService.GetCart();
+            var result = cart.Count();
+            if(result == 0)
+                return new JsonResult(new { result = false});
+            return new JsonResult(new { result = true});
+        }
         public IActionResult AddToCartUsingAjax(int id)
         {
             _cartService.AddToCart(id);
