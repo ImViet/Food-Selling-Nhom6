@@ -48,5 +48,15 @@ namespace FoodSelling.Backend.Controllers
             }
             return Ok(userRegister);
         }
+        [HttpPost]
+        public async Task<ActionResult> GetMe([FromBody] string userName)
+        {
+            var result = await _authRepository.GetMe(userName);
+            if(result == null)
+            {
+                return BadRequest("User not available");
+            }
+            return Ok(result);
+        }
     }
 }
