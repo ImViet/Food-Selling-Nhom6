@@ -1,7 +1,9 @@
 using FoodSelling.CustomerSite.Extensions;
 using FoodSelling.CustomerSite.Interfaces;
 using FoodSelling.DTO.Dtos.CustomerSite.MomoDtos;
+using FoodSelling.DTO.Dtos.UserDtos;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace FoodSelling.CustomerSite.Controllers
@@ -9,30 +11,34 @@ namespace FoodSelling.CustomerSite.Controllers
     public class MomoController: Controller
     {
         private readonly ICart _cartService;
-        public MomoController(ICart cartService)
+        private readonly IAuth _authService;
+        public MomoController(ICart cartService, IAuth authService)
         {
             _cartService = cartService;
+            _authService = authService;
         }
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Payment()
+        public async Task<ActionResult> Payment()
         {
             var cart = _cartService.GetCart();
             var totalCash = cart.Sum(p => p.Total);
+            var userQuery = await _authService.GetMe(HttpContext.Session?.GetString("UserName"));
+            var user = userQuery.Name;
             //request params need to request to MoMo system
+            string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
             string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
             string partnerCode = "MOMOOJOI20210710";
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
-            string orderInfo = "test";
+            string orderInfo = "Thanh toán đơn hàng " + orderid + " cho " + user;
             string returnUrl = "https://localhost:7059/ConfirmPaymentClient";
             string notifyurl = "https://localhost:7059/Home/SavePayment"; 
 
             string amount = totalCash.ToString();
-            string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
             string requestId = DateTime.Now.Ticks.ToString();
             string extraData = "";
 
