@@ -76,6 +76,7 @@
   border-color: #0c713d;
 }
 
-.page-link {
+.page-link, .page-link:focus, .page-link:hover {
   color: #0c713d;
 }
+
