@@ -9,6 +9,12 @@ $(document).ready(function(){
                 required: true,
                 regex: "^[a-zA-Z]+$"
             },
+            identityCard: {
+                required: true,
+                number: true,
+                maxlength: 12,
+                minlength: 12
+            },
             phonenumber: {
                 required: true,
                 number: true,
@@ -26,6 +32,12 @@ $(document).ready(function(){
             },
             name: {
                 required: "Nhập họ và tên",
+            },
+            identityCard: {
+                required: "Nhập CCCD",
+                number: "Không phải định dạng số",
+                maxlength: "CCCD gồm 12 chữ số",
+                minlength: "CCCD gồm 12 chữ số"
             },
             phonenumber: {
                 required: "Nhập số điện thoại",

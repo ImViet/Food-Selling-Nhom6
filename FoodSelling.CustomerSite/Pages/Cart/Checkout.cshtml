@@ -6,16 +6,15 @@
   double total = 0;
   int countItem = @Model.cart.Count();
   var userName = HttpContextAccessor.HttpContext?.Session.GetString("UserName");
-  var user = new UserDto {Email = "123@gmail.com", Name = "Viet Dinh", PhoneNumber ="123456789", Address = "abc"};
 }
 <link rel="stylesheet" href="~/css/Checkout.css">
 <div class="container px-5">
     <form method="post" class="checkout" id="checkout" asp-controller="Momo" asp-action="Payment">
         <div class="row main-checkout d-flex flex-wrap flex-direction-row flex-row">
             <div class="col-8 main-checkout-info">
-                <a href="">
+                @* <a href="">
                     <img src="~/img/Logo3.png" alt="" class="checkout-logo">
-                </a>
+                </a> *@
                 <div class="row main-checkout-body">
                     <input type="text" value="@userName" id="sessionUsername" style="display: none;">
                     <div class="col-6">
@@ -126,11 +125,13 @@
         },
     });
       $("#btn-payment").click(function(){
+        $("#checkout").submit(function(e){
+            e.preventDefault();
+        })
         $.ajax({
           url: "/Cart/CheckCart",
           type: "POST",
           success: function(data) {
-            console.log(data);
             if(data.result == false)
             {
               Swal.fire('Giỏ hàng trống');
@@ -146,10 +147,12 @@
                         {
                             location.href="/Auth/Login"
                         }
-                        @* else
+                        else
                         {
-                            location.href="/Momo/Payment"
-                        } *@
+                            $("#checkout").submit(function(){
+                                location.href = "/Momo/Payment"
+                            })
+                        }
                     }
                 });
             }
