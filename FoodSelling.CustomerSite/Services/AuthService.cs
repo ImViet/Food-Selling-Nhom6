@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using FoodSelling.CustomerSite.Interfaces;
 using FoodSelling.DTO.Dtos.AuthDtos;
+using FoodSelling.DTO.Dtos.UserDtos;
 using Newtonsoft.Json;
 
 namespace FoodSelling.CustomerSite.Services
@@ -22,6 +23,18 @@ namespace FoodSelling.CustomerSite.Services
             var response = await httpClient.PostAsync(url, content);
             var jsonData = response.Content.ReadAsStringAsync().Result;
             var data = JsonConvert.DeserializeObject<bool>(jsonData);
+            return data;
+        }
+
+        public async Task<UserDto> GetMe(string userName)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = "/auth/getme";
+            var jsonString = JsonConvert.SerializeObject(userName);
+            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            var response = await httpClient.PostAsync(url, content);
+            var jsonData = response.Content.ReadAsStringAsync().Result;
+            var data = JsonConvert.DeserializeObject<UserDto>(jsonData);
             return data;
         }
 

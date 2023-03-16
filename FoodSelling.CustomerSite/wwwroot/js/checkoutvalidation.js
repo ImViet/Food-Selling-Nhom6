@@ -9,7 +9,7 @@ $(document).ready(function(){
                 required: true,
                 regex: "^[a-zA-Z]+$"
             },
-            numberphone: {
+            phonenumber: {
                 required: true,
                 number: true,
                 maxlength: 10,
@@ -27,7 +27,7 @@ $(document).ready(function(){
             name: {
                 required: "Nhập họ và tên",
             },
-            numberphone: {
+            phonenumber: {
                 required: "Nhập số điện thoại",
                 number: "Không phải định dạng số",
                 maxlength: "SĐT gồm 10 chữ số",

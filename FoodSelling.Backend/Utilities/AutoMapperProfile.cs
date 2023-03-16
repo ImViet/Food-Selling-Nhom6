@@ -4,6 +4,7 @@ using FoodSelling.DTO.Dtos.AuthDtos;
 using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
 using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
 using FoodSelling.DTO.Dtos.RatingDtos;
+using FoodSelling.DTO.Dtos.UserDtos;
 using System.Runtime.InteropServices;
 
 namespace FoodSelling.Backend.Utilities
@@ -36,6 +37,9 @@ namespace FoodSelling.Backend.Utilities
                 .ForMember(d => d.CategoryName, t => t.MapFrom(src => src.Category.CategoryName))
                 .ForMember(d => d.Ratings, t => t.MapFrom(src => src.Ratings));
             CreateMap<Rating, RatingDto>();
+            CreateMap<User, UserDto>()
+                .ForMember(d => d.UserId, t => t.MapFrom(src => src.Id))
+                .ForMember(d => d.Name, t => t.MapFrom(src => src.FirstName+ " " + src.LastName));
         }
     }
 }

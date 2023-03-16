@@ -2,6 +2,7 @@ using AutoMapper;
 using FoodSelling.Backend.Entities;
 using FoodSelling.Backend.Interfaces;
 using FoodSelling.DTO.Dtos.AuthDtos;
+using FoodSelling.DTO.Dtos.UserDtos;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -36,6 +37,17 @@ namespace RAShop.Backend.Repositories
                 return false;
             }
             return true;
+        }
+
+        public async Task<UserDto> GetMe(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            if(user == null)
+            {
+                throw new Exception("Cannot find this user");
+            }
+            var userDto = _mapper.Map<UserDto>(user);
+            return userDto;
         }
 
         public async Task<AccountDto> LoginAsync(LoginDto userLogin)
