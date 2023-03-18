@@ -97,8 +97,8 @@
    }
     ); 
     $(document).ready(function(){
-      $(".item-quantity").change(function (){
-        console.log($("#item-total-" + $(this).data("id")));
+      $(".item-quantity").keydown(function (event){
+        event.preventDefault();
       });
     });
 
