@@ -1,0 +1,36 @@
+@using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
+@{
+  var products = ViewData["products"] as List<ProductDto>;
+}
+<div class="container">
+<a asp-controller="Product" asp-action="CreateProduct" type="button" class="btn btn-success">Success</a>
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Tên sản phẩm</th>
+        <th scope="col">Giá</th>
+        <th scope="col">Hình ảnh</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in products)
+      {
+        <tr>
+          <th scope="row">@item.ProductId</th>
+          <td>@item.ProductName</td>
+          <td>@string.Format("{0:#,##0.##}₫", @item.Price)</td>
+          <td><img src="~/img/@item.Image" alt="" class="product-img"></td>
+          <td class="col-2">
+            <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark">Chi tiết</button>
+            <button type="button" class="btn btn-outline-secondary btn-rounded" data-mdb-ripple-color="dark">Sửa</button>
+            <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark">Xóa</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+</table>
+</div>
+
+

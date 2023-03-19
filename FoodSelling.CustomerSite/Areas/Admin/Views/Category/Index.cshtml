@@ -1,0 +1,29 @@
+@using FoodSelling.DTO.Dtos.CustomerSite.CategoryDtos;
+@{
+  var categories = ViewData["categories"] as List<CategoryDto>;
+}
+<div class="container">
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Tên danh mục</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in categories)
+      {
+        <tr>
+          <th scope="row">@item.CategoryId</th>
+          <td>@item.CategoryName</td>
+          <td class="col-2">
+            <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark">Chi tiết</button>
+            <button type="button" class="btn btn-outline-secondary btn-rounded" data-mdb-ripple-color="dark">Sửa</button>
+            <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark">Xóa</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+</table>
+</div>

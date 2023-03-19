@@ -13,6 +13,7 @@ namespace FoodSelling.CustomerSite.Interfaces
         Task<ProductDto> GetProductDetail(int id);
         Task<double> GetRatingAVG(int id);
         Task<RatingDto> CreateRating(CreateRatingDto newRating);
+        Task<ProductDto> CreateProduct(CreateProductDto newProduct);
 
 
     }
