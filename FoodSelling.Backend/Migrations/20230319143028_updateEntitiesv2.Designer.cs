@@ -4,6 +4,7 @@ using FoodSelling.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodSelling.Backend.Migrations
 {
     [DbContext(typeof(FoodSellingDbContext))]
-    partial class FoodSellingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230319143028_updateEntitiesv2")]
+    partial class updateEntitiesv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,7 +391,7 @@ namespace FoodSelling.Backend.Migrations
             modelBuilder.Entity("FoodSelling.Backend.Entities.OrderDetail", b =>
                 {
                     b.HasOne("FoodSelling.Backend.Entities.Order", "Orders")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -480,11 +482,6 @@ namespace FoodSelling.Backend.Migrations
             modelBuilder.Entity("FoodSelling.Backend.Entities.Category", b =>
                 {
                     b.Navigation("Products");
-                });
-
-            modelBuilder.Entity("FoodSelling.Backend.Entities.Order", b =>
-                {
-                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("FoodSelling.Backend.Entities.Product", b =>
