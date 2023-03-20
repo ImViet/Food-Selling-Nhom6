@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FoodSelling.CustomerSite.Controllers
 {
+    [Area("Admin")]
+    [Route("Admin/[controller]/[action]")]
     public class ProductController : Controller
     {
         private readonly IProduct _productService;
@@ -20,8 +22,25 @@ namespace FoodSelling.CustomerSite.Controllers
             // {
             //     return Redirect("/Auth/Login");
             // }
+            if (pageCurrent > 1)
+            {
+                ViewData["page"] = pageCurrent;
+            }
+            else
+            {
+                ViewData["page"] = 1;
+            }
+            if (sortOrder != "0")
+            {
+                ViewData["sort"] = sortOrder;
+            }
+            else
+            {
+                ViewData["sort"] = "0";
+            }
             var products = await _productService.GetAll(sortOrder, pageCurrent);
             ViewData["products"] = products.Items;
+             ViewData["totalPages"] = products.TotalPages;
             return View();
         }
 

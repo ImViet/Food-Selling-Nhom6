@@ -8,6 +8,7 @@ namespace FoodSelling.CustomerSite.Interfaces
     public interface IProduct
     {
         Task<PagingDto<ProductDto>> GetAll(string sortOrder, int pageNumber);
+        Task<int> CountProduct();
         Task<PagingDto<ProductDto>> GetProductByCateId(string id, string sortOrder, int pageNumber);
         Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber);
         Task<ProductDto> GetProductDetail(int id);

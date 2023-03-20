@@ -1,6 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    <h3>Day la trang admin</h3>
+﻿@{
+    var countCategory = ViewData["CountCategory"];
+    var countProduct = ViewData["CountProduct"];
 }
+<div class="container">
+  <div class="row">
+    <div class="col-6 row">
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <img src="~/img/categories.png" alt=""  style="width: 64px">
+      </div>
+      <div class="col-10">
+        <span>Tổng danh mục</span>
+      <h3>@countCategory</h3>
+      </div>
+    </div>
+     <div class="col-6 row">
+      <div class="col-2 d-flex justify-content-center align-items-center">
+        <img src="~/img/coffee-cup.png" alt=""  style="width: 64px">
+      </div>
+      <div class="col-10">
+        <span>Tổng sản phẩm</span>
+      <h3>@countProduct</h3>
+      </div>
+    </div>
+  </div>
+</div>
+

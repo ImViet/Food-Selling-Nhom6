@@ -39,6 +39,13 @@ namespace FoodSelling.Backend.Repositories
             return new PagingDto<ProductDto> { TotalPages = totalPages, Items = listProductDto };
         }
 
+        public async Task<int> CountProduct()
+        {
+            var product = await _context.Products.CountAsync();
+            if(product == 0)
+                return 0;
+            return product;
+        }
         public async Task<PagingDto<ProductDto>> GetProductByCateId(string cateId, string sortOrder, int pageNumber, int pageSize)
         {
             //Query product

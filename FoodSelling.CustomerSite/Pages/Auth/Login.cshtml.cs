@@ -31,7 +31,7 @@ namespace FoodSelling.CustomerSite.Pages.Auth
             var role = HttpContext.Session.GetString("Role");
             if(role == "Admin")
             {
-                return Redirect("/Admin");
+                return Redirect("/Admin/Home/Index");
             }
             return Redirect("/Index");
         }

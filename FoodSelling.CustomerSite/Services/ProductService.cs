@@ -25,7 +25,13 @@ namespace FoodSelling.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<PagingDto<ProductDto>>(url);
             return data;
         }
-
+        public async Task<int> CountProduct()
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = "/product/countproduct";
+            var data = httpClient.GetDataFromAPIAsync<int>(url);
+            return data;
+        }
         public async Task<PagingDto<ProductDto>> GetProductByCateId(string cateid, string sortOrder, int pageNumber)
         {
             var httpClient = _clientFactory.CreateClient("myclient");

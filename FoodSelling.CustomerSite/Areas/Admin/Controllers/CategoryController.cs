@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FoodSelling.CustomerSite.Controllers
 {
+    [Area("Admin")]
+    [Route("Admin/[controller]/[action]")]
     public class CategoryController : Controller
     {
         private readonly ICategory _categoryService;

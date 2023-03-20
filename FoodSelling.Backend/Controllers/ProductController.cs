@@ -21,7 +21,11 @@ namespace FoodSelling.Backend.Controllers
         {
             return await _productRepository.GetAllProduct(sortOrder, pageNumber, PagingDto<ProductDto>.PAGESIZE);
         }
-
+        [HttpGet]
+        public async Task<int> CountProduct()
+        {
+            return await _productRepository.CountProduct();
+        }
         [HttpGet]
         public async Task<ActionResult<PagingDto<ProductDto>>> GetProductByCateId([FromQuery(Name = "cateid")] string cateId, [FromQuery(Name = "sort")] string sortOrder = "0", [FromQuery(Name = "pageCurrent")] int pageNumber = 1)
         {
