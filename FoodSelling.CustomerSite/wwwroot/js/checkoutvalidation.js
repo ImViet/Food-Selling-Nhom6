@@ -49,6 +49,9 @@ $(document).ready(function(){
                 required: "Nhập địa chỉ nhận hàng",
             },
         },
+        submitHandler: function(form){
+            window.location.href = "/Momo/Payment"
+        }
     });
 });
 //Custom validate text input
