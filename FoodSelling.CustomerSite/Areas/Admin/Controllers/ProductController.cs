@@ -16,12 +16,12 @@ namespace FoodSelling.CustomerSite.Controllers
         }
         public async Task<ActionResult> Index(string sortOrder = "0", int pageCurrent = 1)
         {
-            // var user = HttpContext.Session.GetString("UserName");
-            // var role = HttpContext.Session.GetString("Role");
-            // if(user == null || role != "Admin")
-            // {
-            //     return Redirect("/Auth/Login");
-            // }
+            var user = HttpContext.Session.GetString("UserName");
+            var role = HttpContext.Session.GetString("Role");
+            if(user == null || role != "Admin")
+            {
+                return Redirect("/Auth/Login");
+            }
             if (pageCurrent > 1)
             {
                 ViewData["page"] = pageCurrent;
