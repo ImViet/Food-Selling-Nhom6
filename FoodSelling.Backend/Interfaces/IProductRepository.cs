@@ -13,5 +13,6 @@ namespace FoodSelling.Backend.Interfaces
         Task<ProductDto> CreateProduct(CreateProductDto newProduct);
         Task<bool> DeleteProduct(int productId);
         Task<ProductDto> UpdateProduct(EditProductDto newProduct);
+        Task<int> CountProduct();
     }
 }

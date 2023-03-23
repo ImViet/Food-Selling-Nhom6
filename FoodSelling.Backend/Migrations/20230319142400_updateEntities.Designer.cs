@@ -4,6 +4,7 @@ using FoodSelling.Backend.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FoodSelling.Backend.Migrations
 {
     [DbContext(typeof(FoodSellingDbContext))]
-    partial class FoodSellingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230319142400_updateEntities")]
+    partial class updateEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,17 +83,12 @@ namespace FoodSelling.Backend.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("OrderDetailId");
 
                     b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
                 });
@@ -116,6 +113,9 @@ namespace FoodSelling.Backend.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OrderDetailId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -133,6 +133,8 @@ namespace FoodSelling.Backend.Migrations
                     b.HasKey("ProductId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("OrderDetailId");
 
                     b.ToTable("Products");
                 });
@@ -389,20 +391,12 @@ namespace FoodSelling.Backend.Migrations
             modelBuilder.Entity("FoodSelling.Backend.Entities.OrderDetail", b =>
                 {
                     b.HasOne("FoodSelling.Backend.Entities.Order", "Orders")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FoodSelling.Backend.Entities.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Orders");
-
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("FoodSelling.Backend.Entities.Product", b =>
@@ -411,6 +405,10 @@ namespace FoodSelling.Backend.Migrations
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("FoodSelling.Backend.Entities.OrderDetail", null)
+                        .WithMany("Products")
+                        .HasForeignKey("OrderDetailId");
 
                     b.Navigation("Category");
                 });
@@ -482,9 +480,9 @@ namespace FoodSelling.Backend.Migrations
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("FoodSelling.Backend.Entities.Order", b =>
+            modelBuilder.Entity("FoodSelling.Backend.Entities.OrderDetail", b =>
                 {
-                    b.Navigation("OrderDetails");
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("FoodSelling.Backend.Entities.Product", b =>

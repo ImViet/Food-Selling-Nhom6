@@ -25,7 +25,13 @@ namespace FoodSelling.CustomerSite.Services
             var data = httpClient.GetDataFromAPIAsync<PagingDto<ProductDto>>(url);
             return data;
         }
-
+        public async Task<int> CountProduct()
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            var url = "/product/countproduct";
+            var data = httpClient.GetDataFromAPIAsync<int>(url);
+            return data;
+        }
         public async Task<PagingDto<ProductDto>> GetProductByCateId(string cateid, string sortOrder, int pageNumber)
         {
             var httpClient = _clientFactory.CreateClient("myclient");
@@ -68,6 +74,20 @@ namespace FoodSelling.CustomerSite.Services
             var response = await httpClient.PostAsync(url, content);
             var jsonData = response.Content.ReadAsStringAsync().Result;
             var data = JsonConvert.DeserializeObject<RatingDto>(jsonData);
+            return data;
+        }
+
+        public async Task<ProductDto> CreateProduct(CreateProductDto newProduct)
+        {
+            var httpClient = _clientFactory.CreateClient("myclient");
+            string url = "/product/createproduct";
+            var token = _httpContextAccessor.HttpContext?.Session.GetString("JWTToken");
+            var jsonString = JsonConvert.SerializeObject(newProduct);
+            HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var response = await httpClient.PostAsync(url, content);
+            var jsonData = response.Content.ReadAsStringAsync().Result;
+            var data = JsonConvert.DeserializeObject<ProductDto>(jsonData);
             return data;
         }
     }

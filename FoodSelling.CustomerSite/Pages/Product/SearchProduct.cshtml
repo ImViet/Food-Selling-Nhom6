@@ -9,7 +9,9 @@
     var products = ViewData["products"] as List<ProductDto>;
 }
 <div style="background-image: url(https://phuclong.com.vn/images/background/bg_tealeaf.svg); background-repeat: repeat">
- <div class="container">
+ @{if(totalPages != 0)
+ {
+    <div class="container">
     <div class="row">
          <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
             @switch (sort)
@@ -122,12 +124,12 @@ else if (pageCurrent == 1)
                 }
                 else
                 {
-                    <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
+                    <li class="page-item"><a class="page-link" asp-page="/Product/SearchProduct"
             asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
                 }
             }  
             <li class="page-item">
-            <a class="page-link" asp-page="/Product/ProductIndex"
+            <a class="page-link" asp-page="/Product/SearchProduct"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent + 1)">Sau</a>
             </li>
         </ul>
@@ -138,7 +140,7 @@ else if (pageCurrent == totalPages)
         <nav aria-label="...">
         <ul class="pagination justify-content-end">
             <li class="page-item">
-                 <a class="page-link" asp-page="/Product/ProductIndex"
+                 <a class="page-link" asp-page="/Product/SearchProduct"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent - 1)">Trước</a>
             </li>
             @for (int i = 1; i <= totalPages; i++)
@@ -153,7 +155,7 @@ else if (pageCurrent == totalPages)
                 }
                 else
                 {
-                    <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
+                    <li class="page-item"><a class="page-link" asp-page="/Product/SearchProduct"
             asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
                 }
             }  
@@ -168,7 +170,7 @@ else
         <nav aria-label="...">
         <ul class="pagination justify-content-end">
             <li class="page-item">
-                 <a class="page-link" asp-page="/Product/ProductIndex"
+                 <a class="page-link" asp-page="/Product/SearchProduct"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent - 1)">Trước</a>
             </li>
             @for (int i = 1; i <= totalPages; i++)
@@ -183,18 +185,24 @@ else
                 }
                 else
                 {
-                    <li class="page-item"><a class="page-link" asp-page="/Product/ProductIndex"
+                    <li class="page-item"><a class="page-link" asp-page="/Product/SearchProduct"
             asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
                 }
             }  
             <li class="page-item">
-             <a class="page-link" asp-page="/Product/ProductIndex"
+             <a class="page-link" asp-page="/Product/SearchProduct"
                  asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent + 1)">Sau</a>
             </li>
         </ul>
     </nav>
 }
  </div>
+ }
+ else
+ {
+    <h3 style="text-align: center;">Không tìm thấy sản phẩm</h3>
+ }
+ }
 </div>
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

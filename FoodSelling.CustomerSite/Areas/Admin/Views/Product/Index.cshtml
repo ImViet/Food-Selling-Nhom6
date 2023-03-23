@@ -1,0 +1,186 @@
+@using FoodSelling.DTO.Dtos.CustomerSite.ProductDtos;
+@{
+  var products = ViewData["products"] as List<ProductDto>;
+  string sort = (string)ViewData["sort"];
+  var pageCurrent = (int)ViewData["page"];
+  int totalPages = (int)ViewData["totalPages"];
+}
+<div class="container">
+  <div class="btn-group float-end" style="width: 15%!important; margin-bottom: 20px;">
+        @switch (sort)
+        {
+        case "price":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Giá tăng dần
+                    </button>
+            break;
+        case "price_desc":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Giá giảm dần
+                    </button>
+            break;
+        case "name":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Tên a-z
+                    </button>
+            break;
+        case "name_desc":
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp: Tên z-a
+                    </button>
+            break;
+        default:
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                        Sắp xếp
+                    </button>
+                break;
+}
+        <ul class="dropdown-menu">
+            <li>
+                <a a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-sortorder="price"
+                    asp-route-pageCurrent="1">Giá tăng dần
+                </a>
+            </li>
+            <li>
+                <a a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-sortorder="price_desc"
+                    asp-route-pageCurrent="1">Giá giảm dần
+                </a>
+            </li>
+            <li>
+                <a a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-sortorder="name"
+                    asp-route-pageCurrent="1">Tên a-z
+                </a>
+            </li>
+            <li>
+                <a a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index" asp-route-sortorder="name_desc"
+                    asp-route-pageCurrent="1">Tên z-a
+                </a>
+            </li>
+        </ul>
+    </div>
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Tên sản phẩm</th>
+        <th scope="col">Giá</th>
+        <th scope="col">Hình ảnh</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach (var item in products)
+      {
+        <tr>
+          <th scope="row">@item.ProductId</th>
+          <td>@item.ProductName</td>
+          <td>@string.Format("{0:#,##0.##}₫", @item.Price)</td>
+          <td><img src="~/img/@item.Image" alt="" class="product-img"></td>
+          <td class="col-2">
+            <button type="button" class="btn btn-outline-primary btn-rounded" data-mdb-ripple-color="dark">Chi tiết</button>
+            <button type="button" class="btn btn-outline-secondary btn-rounded" data-mdb-ripple-color="dark">Sửa</button>
+            <button type="button" class="btn btn-outline-danger btn-rounded" data-mdb-ripple-color="dark">Xóa</button>
+          </td>
+        </tr>
+      }
+    </tbody>
+</table>
+@if(totalPages == 1){
+
+}
+else if(pageCurrent == 1)
+{
+<nav aria-label="...">
+    <ul class="pagination justify-content-end">
+        <li class="page-item disabled">
+        <span class="page-link">Trước</span>
+        </li>
+       @for (int i = 1; i <= totalPages; i++)
+       {
+          @if(i == pageCurrent)
+            {
+                <li class="page-item active"> 
+                    <span class="page-link">
+                    @i
+                    <span class="sr-only">(current)</span>
+                </span></li>
+            }
+            else{
+                <li class="page-item"><a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
+            }
+       }  
+        <li class="page-item">
+        <a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent + 1)">Sau</a>
+        </li>
+    </ul>
+</nav>
+}
+else if(pageCurrent == totalPages)
+{
+    <nav aria-label="...">
+    <ul class="pagination justify-content-end">
+        <li class="page-item">
+             <a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent - 1)">Trước</a>
+        </li>
+       @for (int i = 1; i <= totalPages; i++)
+       {
+          @if(i == pageCurrent)
+            {
+                <li class="page-item active"> 
+                    <span class="page-link">
+                    @i
+                    <span class="sr-only">(current)</span>
+                </span></li>
+            }
+            else{
+                <li class="page-item"><a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
+            }
+       }  
+        <li class="page-item disabled">
+        <span class="page-link">Sau</span>
+        </li>
+    </ul>
+</nav>
+}
+else
+{
+    <nav aria-label="...">
+    <ul class="pagination justify-content-end">
+        <li class="page-item">
+             <a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent - 1)">Trước</a>
+        </li>
+       @for (int i = 1; i <= totalPages; i++)
+       {
+          @if(i == pageCurrent)
+            {
+                <li class="page-item active"> 
+                    <span class="page-link">
+                    @i
+                    <span class="sr-only">(current)</span>
+                </span></li>
+            }
+            else{
+                <li class="page-item"><a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@i">@i</a></li>
+            }
+       }  
+        <li class="page-item">
+         <a class="page-link" asp-area="Admin" asp-controller="Product" asp-action="Index"
+                 asp-route-sortorder="@sort" asp-route-pagecurrent="@(pageCurrent + 1)">Sau</a>
+        </li>
+    </ul>
+</nav>
+}
+</div>
+
+

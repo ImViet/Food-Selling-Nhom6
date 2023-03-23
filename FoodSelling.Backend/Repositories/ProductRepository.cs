@@ -39,6 +39,13 @@ namespace FoodSelling.Backend.Repositories
             return new PagingDto<ProductDto> { TotalPages = totalPages, Items = listProductDto };
         }
 
+        public async Task<int> CountProduct()
+        {
+            var product = await _context.Products.CountAsync();
+            if(product == 0)
+                return 0;
+            return product;
+        }
         public async Task<PagingDto<ProductDto>> GetProductByCateId(string cateId, string sortOrder, int pageNumber, int pageSize)
         {
             //Query product
@@ -70,17 +77,23 @@ namespace FoodSelling.Backend.Repositories
         public async Task<PagingDto<ProductDto>> SearchProducts(string searchString, string sortOrder, int pageNumber, int pageSize)
         {
             //Convert searchstring
-             var str = ConvertToUnSign(searchString);
+            //  var str = ConvertToUnSign(searchString);
             //Query product
-            var productsQuery = _context.Products.Where(delegate (Product p)
-                                        {
-                                            if(ConvertToUnSign(p.ProductName).IndexOf(searchString, StringComparison.CurrentCultureIgnoreCase) >= 0)
-                                                return true;
-                                            else
-                                                return false;
-                                        }).AsQueryable();
-            //Sort
-            productsQuery = Sorting(productsQuery, sortOrder);
+            // var productsQuery = _context.Products.Where(delegate (Product p)
+            //                             {
+            //                                 if(ConvertToUnSign(p.ProductName).IndexOf(searchString, StringComparison.CurrentCultureIgnoreCase) >= 0)
+            //                                     return true;
+            //                                 else
+            //                                     return false;
+            //                             }).AsQueryable();
+            var productsQuery = _context.Products.Where(x => x.ProductName.ToUpper().Contains(searchString.ToUpper()));
+            if (searchString != "")
+            {
+                //Sort
+                productsQuery = Sorting(productsQuery, sortOrder);
+            }
+            else
+                return new PagingDto<ProductDto> { TotalPages = 1, Items = null };
 
             var countProduct = productsQuery.Count();
 

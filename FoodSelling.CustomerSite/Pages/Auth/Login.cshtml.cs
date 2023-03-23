@@ -26,7 +26,13 @@ namespace FoodSelling.CustomerSite.Pages.Auth
             string token = account.Token;
             HttpContext.Session.SetString("JWTToken", token);
             HttpContext.Session.SetString("UserName", account.UserName);
-            ViewData["messageChecked"] = "abc";
+            HttpContext.Session.SetString("Role", account.Role);
+            ViewData["messageChecked"] = "";
+            var role = HttpContext.Session.GetString("Role");
+            if(role == "Admin")
+            {
+                return Redirect("/Admin/Home/Index");
+            }
             return Redirect("/Index");
         }
 

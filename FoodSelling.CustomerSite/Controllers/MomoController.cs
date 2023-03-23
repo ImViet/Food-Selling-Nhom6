@@ -26,15 +26,15 @@ namespace FoodSelling.CustomerSite.Controllers
         {
             var cart = _cartService.GetCart();
             var totalCash = cart.Sum(p => p.Total);
-            var userQuery = await _authService.GetMe(HttpContext.Session?.GetString("UserName"));
-            var user = userQuery.Name;
+            // var userQuery = await _authService.GetMe(HttpContext.Session?.GetString("UserName"));
+            // var user = userQuery.Name;
             //request params need to request to MoMo system
             string orderid = DateTime.Now.Ticks.ToString(); //mã đơn hàng
             string endpoint = "https://test-payment.momo.vn/gw_payment/transactionProcessor";
             string partnerCode = "MOMOOJOI20210710";
             string accessKey = "iPXneGmrJH0G8FOP";
             string serectkey = "sFcbSGRSJjwGxwhhcEktCHWYUuTuPNDB";
-            string orderInfo = "Thanh toán đơn hàng " + orderid + " cho " + user;
+            string orderInfo = "Thanh toán đơn hàng " + orderid;
             string returnUrl = "https://localhost:7059/ConfirmPaymentClient";
             string notifyurl = "https://localhost:7059/Home/SavePayment"; 
 

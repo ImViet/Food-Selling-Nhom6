@@ -19,7 +19,7 @@ builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "rookiesassignment";
-    options.IdleTimeout = TimeSpan.FromSeconds(2000);
+    options.IdleTimeout = TimeSpan.FromSeconds(20000);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
@@ -36,6 +36,7 @@ builder.Services.AddRazorPages()
     .AddRazorPagesOptions(options =>
     {
         options.Conventions.AddPageRoute("/Home/Index", "");
+        options.Conventions.AddAreaPageRoute("Admin","/Home/Index", "");
     });
 
 
@@ -64,6 +65,9 @@ app.UseEndpoints(endpoints =>
     // trong thư mục Pages
     endpoints.MapRazorPages();
 });
+app.MapControllerRoute(
+    name: "Admin",
+    pattern: "{area=Admin}/{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
    name: "default",
    pattern: "{controller=Home}/{action=Index}/{id?}");
