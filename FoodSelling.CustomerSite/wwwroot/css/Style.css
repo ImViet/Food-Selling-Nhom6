@@ -80,3 +80,7 @@
   color: #0c713d;
 }
 
+.item-delete:hover {
+  cursor: pointer;
+}
+

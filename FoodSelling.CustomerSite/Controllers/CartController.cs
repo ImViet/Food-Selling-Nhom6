@@ -41,5 +41,17 @@ namespace FoodSelling.CustomerSite.Controllers
                 }
             );
         }
+        public IActionResult DeleteItemInCart(int id)
+        {
+            var cart = _cartService.GetCart();
+            _cartService.RemoveItem(id);
+            HttpContext.Session.SetString("CountCart", _cartService.CountItem().ToString());
+            return new JsonResult(
+                new {
+                    CountItem = HttpContext.Session.GetString("CountCart"),
+                    TotalToPay = cart.Sum(p => p.Total)
+                }
+            );
+        }
     }
 }
