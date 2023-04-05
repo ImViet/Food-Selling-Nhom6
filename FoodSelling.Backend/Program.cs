@@ -96,7 +96,11 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 builder.Services.AddAuthentication();
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options => {
+    options.AddPolicy("User", policy => {
+        policy.RequireClaim("Role", "User");
+    });
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

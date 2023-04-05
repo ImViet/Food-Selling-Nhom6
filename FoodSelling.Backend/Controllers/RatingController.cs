@@ -20,7 +20,7 @@ namespace FoodSelling.Backend.Controllers
         {
             return await _ratingRepository.GetProductRatings(id);
         }
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        [Authorize(AuthenticationSchemes = "Bearer", Policy = "User")]
         [HttpPost]
         public async Task<RatingDto> CreateRating(CreateRatingDto newRating)
         {
